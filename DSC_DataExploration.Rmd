@@ -14,7 +14,7 @@ library(tidyverse)
 
 Getting and Cleaning the dataset: 
 
-```{r}
+```{r, cache=TRUE}
 url_f <- 
   "https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip"
 file_data <- "Coursera-SwiftKey.zip"
@@ -23,7 +23,7 @@ file <- list.files(pattern = "zip", full.names = TRUE)
 file.size(file) / 1e6
 unzip(file)
 folder <- "final"
-list.files(folder, full.names = TRUE, recursive = TRUE)
-readLines(file, n = 5)
+files_data <- list.files(folder, full.names = TRUE, recursive = TRUE)
+readLines(files_data[4], n = 2)
 ```
 
