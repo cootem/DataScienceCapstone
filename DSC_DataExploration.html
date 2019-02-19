@@ -376,11 +376,80 @@ $(document).ready(function () {
 </div>
 
 
-<div id="data-science-capston-project" class="section level2">
-<h2>Data Science Capston Project</h2>
-<p>Getting and Cleaning the dataset:</p>
-<pre class="r"><code>file &lt;- 
-  &quot;https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip&quot;</code></pre>
+<div id="objective" class="section level2">
+<h2>Objective</h2>
+<p>Data Science Capston Project</p>
+</div>
+<div id="get-the-dataset" class="section level2">
+<h2>Get the dataset</h2>
+<pre class="r"><code>url_f &lt;- 
+  &quot;https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip&quot;
+file_data &lt;- &quot;Coursera-SwiftKey.zip&quot;
+# download.file(url = url_f, destfile = file_data)
+file &lt;- list.files(pattern = &quot;zip&quot;, full.names = TRUE)
+file.size(file) / 1e6</code></pre>
+<pre><code>## [1] 574.6612</code></pre>
+<pre class="r"><code>unzip(file)
+folder &lt;- &quot;final&quot;
+files_data &lt;- list.files(folder, full.names = TRUE, recursive = TRUE)</code></pre>
+</div>
+<div id="explore-the-files" class="section level2">
+<h2>Explore the files</h2>
+<pre class="r"><code>files_data</code></pre>
+<pre><code>##  [1] &quot;final/de_DE/de_DE.blogs.txt&quot;   &quot;final/de_DE/de_DE.news.txt&quot;   
+##  [3] &quot;final/de_DE/de_DE.twitter.txt&quot; &quot;final/en_US/en_US.blogs.txt&quot;  
+##  [5] &quot;final/en_US/en_US.news.txt&quot;    &quot;final/en_US/en_US.twitter.txt&quot;
+##  [7] &quot;final/fi_FI/fi_FI.blogs.txt&quot;   &quot;final/fi_FI/fi_FI.news.txt&quot;   
+##  [9] &quot;final/fi_FI/fi_FI.twitter.txt&quot; &quot;final/ru_RU/ru_RU.blogs.txt&quot;  
+## [11] &quot;final/ru_RU/ru_RU.news.txt&quot;    &quot;final/ru_RU/ru_RU.twitter.txt&quot;</code></pre>
+<pre class="r"><code>lapply(files_data, readLines, n = 2)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Irgendwann wird es Zeit. Ich schleppe es ja auch jeden Tag mit mir herum. Da leidet es schon ein wenig. Nicht nur die Tasten gehen kaputt, auch habe ich immer wieder auf ein mal kein Netz wo ich früher keine Probleme hatte. Wovon ich rede? Mein Handy. Ein HTC Smartphone, ca 2,5 Jahre alt.&quot;
+## [2] &quot;Kommentar: auch hier wird durch die Voranstellung einer entsprechenden Bemuskelung des Halses vor die Eleganz die Sportlichkeit der Rasse betont.&quot;                                                                                                                                                
+## 
+## [[2]]
+## [1] &quot;Das Rezept für ihre Schokobrezln hat die 60-Jährige schon vor 26 Jahren in einer österreichischen Sendung entdeckt. Mittlerweile kommenn sie jedes Jahr zu Weihnachten auf den Teller. Thurner hat sich heuer das erste Mal beim Zuckerguss-Magazin beworben, obwohl sie schon öfter mal Rezepte daraus nach gebacken hat. Sie erzählt: „Ich habe das Rezept für die Schokobrezln noch nie irgendwo gesehen. Da habe ich es eingeschickt.“ Lachend fügt sie hinzu: „Und ich wollte unbedingt diese Schürze.“&quot;
+## [2] &quot;Für die Linksparteibewerber ist nun die entscheidende Frage, wie sich SPD- und Grünenwähler in einer solchen Persönlichkeitsentscheidung verhalten. Rot-Rot-Grün auf Kreisebene hatte zum Beispiel Siegried Konieczny 2009 überraschend ins Amt gebracht, vor dem zweiten Wahlgang hatte der CDU-Kandidat seinerzeit noch sehr deutlich geführt. In derartigen Stichwahlen sind jederzeit Überraschungen möglich.&quot;                                                                                           
+## 
+## [[3]]
+## [1] &quot;irgendwas stimmt mut meinem internet am pc nich :(&quot;                                                                            
+## [2] &quot;\&quot;Wir haben hier ein angebrochenes Fass Bier!\&quot; habe ich mir auch anders vorgestellt. Fragt sich nur, wer darüber gekotzt hat.&quot;
+## 
+## [[4]]
+## [1] &quot;In the years thereafter, most of the Oil fields and platforms were named after pagan “gods”.&quot;
+## [2] &quot;We love you Mr. Brown.&quot;                                                                      
+## 
+## [[5]]
+## [1] &quot;He wasn't home alone, apparently.&quot;                                                                                                                        
+## [2] &quot;The St. Louis plant had to close. It would die of old age. Workers had been making cars there since the onset of mass automotive production in the 1920s.&quot;
+## 
+## [[6]]
+## [1] &quot;How are you? Btw thanks for the RT. You gonna be in DC anytime soon? Love to see you. Been way, way too long.&quot;  
+## [2] &quot;When you meet someone special... you'll know. Your heart will beat more rapidly and you'll smile for no reason.&quot;
+## 
+## [[7]]
+## [1] &quot;Suun kautta annettu D-vitamiini, 100 mikrogrammaa (µg) päivässä, lievittää ja parantaa atooppista ihottumaa, ilmenee Kalifornian yliopiston tutkimuksesta. D-vitamiini auttaa ihoa tuottamaan tulehdukselta suojaavaa yhdistettä, katelisidiiniä, jota on normaalistikin ihossa pieniä määriä.&quot;              
+## [2] &quot;Tuli mieleen tuosta isojen puolueiden ja linjavetojen kehittelystäsi, että isäni äänestää usein epätodennäköistä nuorta jatkoonmenijää, koska silloin äänellä on suurempi painoarvo kohteelleen, hilkulle päässeetkin saavat kannustusta jatkaa. Politiikassahan äänestetään paitsi puoluetta myös henkilöä.&quot;
+## 
+## [[8]]
+## [1] &quot;Onko sinua mielestäsi kohdeltu syntyneen kohun aikana asiallisesti?&quot;                                                                                                                                                                                                                                                                                                                              
+## [2] &quot;Kuntien perinteisenä tapana on ollut syyttää valtiota uusien tehtävien sälyttämisestä kunnille, ilman että valtio ottaisi riittävästi vastuuta tehtävien kustannuksista. Valtiota lyödään myös siitä, että verotuksen keventäminen on kalvanut kuntien veropohjaa. Valtio puolestaan näkee, että kuntien taloudenpidossa on ainakin hyvinä vuosina ollut tehottomuutta ja antaa mennä -meininkiä.&quot;
+## 
+## [[9]]
+## [1] &quot;Inspiroivaa kirjoittaa sisällä lämpimässä, kun ulkona tuuli tuivertaa ja pakkanen paukkuu.&quot;
+## [2] &quot;miksi ihmiset luulee olevansa niin tärkeitä, että antautuvat aina tavoitettaviksi?&quot;        
+## 
+## [[10]]
+## [1] &quot;Настало время и мне поделиться чем-нибудь сладким!!! Уже совсем скоро наступит Новый год, и поэтому моя конфека посвящается этому чудесному празднику!&quot;
+## [2] &quot;сама элегантность и выдержанность....&quot;                                                                                                                 
+## 
+## [[11]]
+## [1] &quot;Словом, поле для деятельности большое. Можно даже не прибегать к помощи интернет-сообщества и сэкономить ценные призы. А вместо этого самим повторить школьный курс литературы. Уж от этого-то польза точно будет.&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                  
+## [2] &quot;Для смены режима Эмомали Рахмона в Таджикистане все готово, взрыв может случиться в любую минуту, активисты оппозиционного движения «Ватандор» ждут лишь сигнала к массовым протестам. По крайней мере, это утверждает Дододжон Атовуллоев, лидер этого движения, недавно переживший в Москве покушение и едва выживший. Главный аргумент таджикской оппозиции, убеждающей Кремль поддержать будущую «революцию фиалок», – причастность высшего руководства Таджикистана к наркотрафику в Россию. Серьезные опасения вызывает, что к возможной смене власти в Таджикистане сегодня готовится и «третья сила» – международные преступные группировки.&quot;
+## 
+## [[12]]
+## [1] &quot;помыла с боем и модным шампунем котэ, а оно пришло и стряхивает всю воду мне в монитор! - мстит, сук..)&quot;
+## [2] &quot;Еще 20 минут&quot;</code></pre>
 </div>
 
 

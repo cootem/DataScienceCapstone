@@ -10,20 +10,28 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-## Data Science Capston Project
+## Objective
 
-Getting and Cleaning the dataset: 
+Data Science Capston Project
+
+## Get the dataset
 
 ```{r, cache=TRUE}
 url_f <- 
   "https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip"
 file_data <- "Coursera-SwiftKey.zip"
-download.file(url = url_f, destfile = file_data)
+# download.file(url = url_f, destfile = file_data)
 file <- list.files(pattern = "zip", full.names = TRUE)
 file.size(file) / 1e6
 unzip(file)
 folder <- "final"
 files_data <- list.files(folder, full.names = TRUE, recursive = TRUE)
-readLines(files_data[4], n = 2)
+```
+
+## Explore the files
+
+```{r, cache=TRUE}
+files_data
+lapply(files_data, readLines, n = 2)
 ```
 
