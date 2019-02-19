@@ -1,0 +1,29 @@
+---
+title: "Data Science Capstone - Data Exploration"
+author: "Michael Coote"
+date: "2/18/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Data Science Capston Project
+
+Getting and Cleaning the dataset: 
+
+```{r}
+url_f <- 
+  "https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip"
+file_data <- "Coursera-SwiftKey.zip"
+download.file(url = url_f, destfile = file_data)
+file <- list.files(pattern = "zip", full.names = TRUE)
+file.size(file) / 1e6
+unzip(file)
+folder <- "final"
+list.files(folder, full.names = TRUE, recursive = TRUE)
+readLines(file, n = 5)
+```
+
