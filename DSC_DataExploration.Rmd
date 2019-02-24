@@ -73,7 +73,6 @@ prettyNum(lapply(data, length), big.mark = ",")
 
 ## Exploratory Analysis
 
-
 ### Word Distribution and Relationships
 
 1. Some words are more frequent than others - what are the distributions of word
