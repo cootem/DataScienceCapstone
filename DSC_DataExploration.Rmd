@@ -29,12 +29,12 @@ files_data <- list.files(folder, full.names = TRUE, recursive = TRUE)
 files_data_sh <- list.files(folder, full.names = FALSE, recursive = TRUE)
 files_data_sh <- gsub("^(.*)/", "", files_data_sh)
 files_data_info <- file.info(files_data, recursive = TRUE)
-files_data_info$size <- files_data_info$size / 1e6
+files_data_info$size <- round(files_data_info$size / 1e6, 1)
 files_data_info <- rename(files_data_info, size_Mb = size)
 files_data_info
 ```
 
-Total size of data = `r sum(files_data_info$size_Mb)` in 
+Total size of data = `r sum(files_data_info$size_Mb)` Mb in 
 `r nrow(files_data_info)` files.
 
 ## File Exploration
