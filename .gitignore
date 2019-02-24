@@ -28,5 +28,4 @@ rsconnect/
 final/*
 *.zip
 # miscellaneous files
-DSC_DataExploration.nb.html
 scratch.nb.html
