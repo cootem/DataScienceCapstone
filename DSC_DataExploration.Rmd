@@ -73,41 +73,6 @@ prettyNum(lapply(data, length), big.mark = ",")
 
 ## Exploratory Analysis
 
-###  Quick Analysis
-
-Length of the lines in  each file
-
-```{r}
-data_chars <- sapply(data, function(f) sapply(f, nchar, USE.NAMES = FALSE))
-sapply(data_chars, summary)
-```
-
-Ratio of the word "love" to the word "hate"
-
-```{r}
-lines_love <- data$en_US.twitter.txt[grepl("\\<love\\>", data$en_US.twitter.txt)]
-head(lines_love)
-lines_hate <- data$en_US.twitter.txt[grepl("\\<hate\\>", data$en_US.twitter.txt)]
-head(lines_hate)
-```
-
-love lines = `r length(lines_love)`, hate lines = `r length(lines_hate)`
-
-The ratio of love to hate is `r length(lines_love) / length(lines_hate)`
-
-A tweat that matches the word "biostats":
-
-```{r}
-data$en_US.twitter.txt[grepl("biostats", data$en_US.twitter.txt)]
-```
-
-Tweets with the "A computer once beat me at chess, but it was no match for me at 
-kickboxing". 
-
-```{r}
-stringMatch <- "A computer once beat me at chess, but it was no match for me at kickboxing"
-data$en_US.twitter.txt[grepl(stringMatch, data$en_US.twitter.txt)]
-```
 
 ### Word Distribution and Relationships
 
