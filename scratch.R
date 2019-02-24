@@ -1,5 +1,4 @@
 #### Scratch Pad ####
-# test
 
 library(tidyverse)
 library(clipr)
