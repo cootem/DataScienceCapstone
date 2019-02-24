@@ -27,5 +27,6 @@ rsconnect/
 # data files
 final/*
 *.zip
+# miscellaneous files
 scratch.R
 DSC_DataExploration.nb.html
