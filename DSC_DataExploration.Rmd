@@ -37,7 +37,7 @@ files_data_info
 Total size of data = `r sum(files_data_info$size_Mb)` in 
 `r nrow(files_data_info)` files.
 
-## Explore the files
+## File Exploration
 
 Show Filenames and first line of each file
 
@@ -71,7 +71,9 @@ Show number of lines in each file
 prettyNum(lapply(data, length), big.mark = ",")
 ```
 
-## Analysis
+## Exploratory Analysis
+
+###  Quick Analysis
 
 Length of the lines in  each file
 
@@ -106,5 +108,22 @@ kickboxing".
 stringMatch <- "A computer once beat me at chess, but it was no match for me at kickboxing"
 data$en_US.twitter.txt[grepl(stringMatch, data$en_US.twitter.txt)]
 ```
+
+### Word Distribution and Relationships
+
+1. Some words are more frequent than others - what are the distributions of word
+frequencies?
+1. What are the frequencies of 2-grams and 3-grams in the dataset?
+1. How many unique words do you need in a frequency sorted dictionary to cover 
+50% of all word instances in the language? 90%?
+1. How do you evaluate how many of the words come from foreign languages?
+1. Can you think of a way to increase the coverage -- identifying words that may 
+not be in the corpora or using a smaller number of words in the dictionary to 
+cover the same number of phrases?
+
+```{r}
+
+```
+
 
 --------------------------------------------------------
