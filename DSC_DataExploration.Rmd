@@ -1,8 +1,8 @@
 ---
 title: "Data Science Capstone - Data Exploration"
 author: "Michael Coote"
-date: "2/18/2019"
-output: html_document
+date: "2/24/2019"
+output: html_notebook
 ---
 
 ```{r setup, include=FALSE}
@@ -26,12 +26,85 @@ file.size(file) / 1e6
 unzip(file)
 folder <- "final"
 files_data <- list.files(folder, full.names = TRUE, recursive = TRUE)
+files_data_sh <- list.files(folder, full.names = FALSE, recursive = TRUE)
+files_data_sh <- gsub("^(.*)/", "", files_data_sh)
+files_data_info <- file.info(files_data, recursive = TRUE)
+files_data_info$size <- files_data_info$size / 1e6
+files_data_info <- rename(files_data_info, size_Mb = size)
+files_data_info
 ```
+
+Total size of data = `r sum(files_data_info$size_Mb)` in 
+`r nrow(files_data_info)` files.
 
 ## Explore the files
 
+Show Filenames and first line of each file
+
 ```{r, cache=TRUE}
 files_data
-lapply(files_data, readLines, n = 2)
+data <- lapply(files_data, read_lines, n_max = 1)
+names(data) <- files_data_sh
+data
 ```
 
+Find US files only 
+
+```{r}
+files_data_US <- files_data[grepl("US", files_data)]
+files_data_sh_US <- files_data_sh[grepl("US", files_data_sh)]
+```
+
+Load all US into memory
+
+```{r}
+data <- lapply(files_data_US, read_lines)
+names(data) <- files_data_sh_US
+names(data)
+```
+
+File space in memory = `r format(object.size(data), units = "Mb")`
+
+Show number of lines in each file
+
+```{r}
+prettyNum(lapply(data, length), big.mark = ",")
+```
+
+## Analysis
+
+Length of the lines in  each file
+
+```{r}
+data_chars <- sapply(data, function(f) sapply(f, nchar, USE.NAMES = FALSE))
+sapply(data_chars, summary)
+```
+
+Ratio of the word "love" to the word "hate"
+
+```{r}
+lines_love <- data$en_US.twitter.txt[grepl("\\<love\\>", data$en_US.twitter.txt)]
+head(lines_love)
+lines_hate <- data$en_US.twitter.txt[grepl("\\<hate\\>", data$en_US.twitter.txt)]
+head(lines_hate)
+```
+
+love lines = `r length(lines_love)`, hate lines = `r length(lines_hate)`
+
+The ratio of love to hate is `r length(lines_love) / length(lines_hate)`
+
+A tweat that matches the word "biostats":
+
+```{r}
+data$en_US.twitter.txt[grepl("biostats", data$en_US.twitter.txt)]
+```
+
+Tweets with the "A computer once beat me at chess, but it was no match for me at 
+kickboxing". 
+
+```{r}
+stringMatch <- "A computer once beat me at chess, but it was no match for me at kickboxing"
+data$en_US.twitter.txt[grepl(stringMatch, data$en_US.twitter.txt)]
+```
+
+--------------------------------------------------------
