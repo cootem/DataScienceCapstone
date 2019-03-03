@@ -8,6 +8,10 @@ output: html_notebook
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(tm)
+library(wordcloud2)
+library(pander)
+library(ggplot2)
 ```
 
 ## Objective
@@ -42,45 +46,60 @@ Total size of data = `r sum(files_data_info$size_Mb)` Mb in
 Show Filenames and first line of each file
 
 ```{r, cache=TRUE}
-files_data
-data <- lapply(files_data, read_lines, n_max = 1)
-names(data) <- files_data_sh
+data <- sapply(files_data, read_lines, n_max = 1)
 data
 ```
 
-Find US files only 
+Find the US files only load into memory.
 
 ```{r}
 files_data_US <- files_data[grepl("US", files_data)]
 files_data_sh_US <- files_data_sh[grepl("US", files_data_sh)]
-```
-
-Load all US into memory
-
-```{r}
 data <- lapply(files_data_US, read_lines)
 names(data) <- files_data_sh_US
-names(data)
 ```
 
-File space in memory = `r format(object.size(data), units = "Mb")`
+The files `r pander(names(data))` are loaded. They are using 
+`r format(object.size(data), units = "Mb")` of memory.
 
-Show number of lines in each file
+Each file has the following number of rows:
 
 ```{r}
-prettyNum(lapply(data, length), big.mark = ",")
+enframe(prettyNum(lapply(data, length), big.mark = ","), 
+        name = "file", value = "rows") 
 ```
+
+### Data Cleaning
+
+The US files are 
 
 ## Exploratory Analysis
 
 ### Word Distribution and Relationships
 
-1. Some words are more frequent than others - what are the distributions of word
+Some words are more frequent than others - what are the distributions of word
 frequencies?
-1. What are the frequencies of 2-grams and 3-grams in the dataset?
-1. How many unique words do you need in a frequency sorted dictionary to cover 
+
+```{r}
+
+```
+
+What are the frequencies of 2-grams and 3-grams in the dataset?
+
+```{r}
+
+```
+
+How many unique words do you need in a frequency sorted dictionary to cover 
 50% of all word instances in the language? 90%?
-1. How do you evaluate how many of the words come from foreign languages?
+
+```{r}
+
+```
+
+How do you evaluate how many of the words come from foreign languages?
+
+
 1. Can you think of a way to increase the coverage -- identifying words that may 
 not be in the corpora or using a smaller number of words in the dictionary to 
 cover the same number of phrases?
