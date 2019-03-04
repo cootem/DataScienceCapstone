@@ -1,8 +1,10 @@
 ---
-title: "Data Science Capstone - Data Exploration"
+title: "Natural Language Processing - Data Exploration"
 author: "Michael Coote"
-date: "3/3/2019"
-output: html_notebook
+date: "3/4/2019"
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -21,13 +23,12 @@ Data Science Capstone Project
 
 ## Get the dataset
 
-```{r, cache=TRUE}
+```{r getData, cache=TRUE}
 url_f <- 
   "https://d396qusza40orc.cloudfront.net/dsscapstone/corpusset/Coursera-SwiftKey.zip"
 file_corpus <- "Coursera-SwiftKey.zip"
 # download.file(url = url_f, destfile = file_corpus)
 file <- list.files(pattern = "zip", full.names = TRUE)
-file.size(file) / 1e6
 unzip(file)
 folder <- "final"
 files_corpus <- list.files(folder, full.names = TRUE, recursive = TRUE)
@@ -36,39 +37,65 @@ files_corpus_sh <- gsub("^(.*)/", "", files_corpus_sh)
 files_corpus_info <- file.info(files_corpus, recursive = TRUE)
 files_corpus_info$size <- round(files_corpus_info$size / 1e6, 1)
 files_corpus_info <- rename(files_corpus_info, size_Mb = size)
-files_corpus_info
+files_corpus_info[, c("size_Mb", "mtime")]
 ```
 
-Total size of corpus = `r sum(files_corpus_info$size_Mb)` Mb in 
+Total size of corpus = 
+`r prettyNum(sum(files_corpus_info$size_Mb), big.mark = ",")` Mb in 
 `r nrow(files_corpus_info)` files.
 
 ## File Exploration
 
-Show Filenames and first line of each file, limited to 80 characters:
+Show Filenames and first line of each file, limited to `r sLen = 60; sLen` 
+characters:
 
-```{r, cache=TRUE}
+```{r explore1, cache=TRUE}
 corpus_sm <- sapply(files_corpus, read_lines, n_max = 1)
-enframe(substr(corpus_sm, 1, 80))
+enframe(substr(corpus_sm, 1, sLen))
 ```
 
-Find the US files only load into memory.
+Find the US files only and load into memory.
 
-```{r}
+```{r explore2}
 files_corpus_US <- files_corpus[grepl("US", files_corpus)]
 files_corpus_sh_US <- files_corpus_sh[grepl("US", files_corpus_sh)]
-corpus <- lapply(files_corpus_US, read_lines, n_max = 1e4)
+corpus <- lapply(files_corpus_US, read_lines)
 names(corpus) <- files_corpus_sh_US
+corpus_size1 = object.size(corpus)
 ```
 
 The files `r pander(names(corpus))` are loaded. They are using 
-`r format(object.size(corpus), units = "Mb")` of memory.
+`r format(corpus_size1, units = "Mb")` 
+of memory.
 
 Each file has the following number of rows:
 
-```{r}
+```{r explore3}
 enframe(prettyNum(lapply(corpus, length), big.mark = ","), 
         name = "file", value = "rows") 
 ```
+
+Sampling 1/`r sam = 10; sam` of the rows for more efficient processing.
+
+```{r explore4}
+corpus <- lapply(corpus, function(c) { 
+  len <- length(c)
+  samSize <- round(len/sam, 0)
+  c <- c[sample(len, samSize)]
+})
+corpus_size2 = object.size(corpus)
+```
+
+The following number of randomly selected rows from each file are being used:
+
+```{r explore5}
+enframe(prettyNum(lapply(corpus, length), big.mark = ","), 
+        name = "file", value = "rows") 
+```
+
+They are now using 
+`r format(corpus_size2, units = "Mb")` 
+of memory.
 
 ### Data Cleaning
 
@@ -81,7 +108,7 @@ Using the tm package, the corpus is cleaned
 *  Strip whitespace
 *  Converts to plain text format
 
-```{r}
+```{r clean1}
 corpus <- VCorpus(VectorSource(corpus))
 corpus <- tm_map(corpus, removeWords, stopwords("en"))
 corpus <- tm_map(corpus, tolower)
@@ -96,49 +123,107 @@ names(corpus) <- gsub('en_US.|.txt', "", files_corpus_sh_US)
 
 ### Word Distribution and Relationships
 
+Dictionaries of unigrams, bigrams and trigrams are built and their distributions
+are examined.
+
+#### Unigrams
+
 The wordcloud package is used to illustrate the most common word frequencies for
 each document.
 
-```{r}
-dtm <- as.matrix(TermDocumentMatrix(corpus))
-dtm <- as_tibble(dtm, rownames = "word")
+```{r unigramsWordcloud}
 for(i in 1:length(corpus)) {
   nm <- names(corpus)[i]
   wordcloud(corpus[i], max.words = 80, colors=brewer.pal(8, "Accent"), 
             random.order = FALSE, rot.per = 0.45, scale = c(3, 1))
   title(nm)
-  ngrams <- dtm[order(-dtm[nm]), c("word", nm)]
-  ngrams <- ngrams[1:20,]
-  data$word <- as_factor(ngrams$word)
-  p <- ggplot(data = ngrams, aes_string(x = "word", y = nm)) + 
-    geom_bar(stat = "identity") + theme_bw()
-  print(p)
-  }
+}
 ```
 
-What are the frequencies of 2-grams and 3-grams in the corpusset?
+Also, a histogram, segmented by word source, shows the overall distribution
+of unigrams.
 
-```{r}
-
+```{r unigramsHist}
+tdm <- as.matrix(TermDocumentMatrix(corpus))
+tdm <- as_tibble(tdm, rownames = "word")
+tdm <- tdm %>% 
+  mutate(all = blogs + news + twitter) %>% 
+  arrange(desc(all))
+tdm <- tdm %>% mutate(runningCount = cumsum(all))
+tdm_wordLevels <- unique(tdm$word)
+tdm_top <- tdm[1:20, c("word", "blogs", "news", "twitter")] %>% 
+  gather(key = "source", value = "count", 2:4)
+tdm_top$word <- as_factor(tdm_top$word)
+p <- ggplot(data = tdm_top, 
+            aes(x = word, y = count, fill = source), 
+            color = brewer.pal(3, "Accent")) + 
+  geom_bar(stat = "identity") + 
+  theme_bw() + theme(legend.position = c(0.9,0.8))
+print(p)
 ```
 
-How many unique words do you need in a frequency sorted dictionary to cover 
-50% of all word instances in the language? 90%?
 
-```{r}
 
+#### Bigrams
+
+```{r bigrams}
+bigramTokenizer <- function(x) {
+  unlist(lapply(ngrams(words(x), 2), paste, collapse = " "), use.names = FALSE)
+}
+tdm_bigrams <- as.matrix(
+  TermDocumentMatrix(corpus, control = list(tokenize = bigramTokenizer)))
+tdm_bigrams <- as_tibble(tdm_bigrams, rownames = "bigram")
+tdm_bigrams <- tdm_bigrams %>% 
+  mutate(all = blogs + news + twitter) %>% 
+  arrange(desc(all))
+tdm_bigrams[1:20,]
 ```
 
-How do you evaluate how many of the words come from foreign languages?
+#### Trigrams
 
-
-1. Can you think of a way to increase the coverage -- identifying words that may 
-not be in the corpora or using a smaller number of words in the dictionary to 
-cover the same number of phrases?
-
-```{r}
-
+```{r trigrams}
+trigramTokenizer <- function(x) {
+  unlist(lapply(ngrams(words(x), 3), paste, collapse = " "), use.names = FALSE)
+}
+tdm_trigrams <- as.matrix(
+  TermDocumentMatrix(corpus, control = list(tokenize = trigramTokenizer)))
+tdm_trigrams <- as_tibble(tdm_trigrams, rownames = "trigram")
+tdm_trigrams <- tdm_trigrams %>% 
+  mutate(all = blogs + news + twitter) %>% 
+  arrange(desc(all))
+tdm_trigrams[1:20,]
 ```
 
+### nGram Coverage
+
+A fraction of the words in a frequency sorted dictionary can be used to 
+cover most of the the total word instances in the set.
+
+```{r coverage}
+tdm <- tdm %>% mutate(runningCount = cumsum(all))
+totalUnigrams <- sum(tdm$all)
+cover50 <- which(abs(tdm$runningCount - (0.5 * totalUnigrams)) == 
+        min(abs(tdm$runningCount - (0.5 * totalUnigrams))))
+cover90 <- which(abs(tdm$runningCount - (0.9 * totalUnigrams)) == 
+        min(abs(tdm$runningCount - (0.9 * totalUnigrams))))
+```
+
+*  total uni-grams present = `r prettyNum(totalUnigrams, big.mark = ",")`
+*  number of uni-grams to cover 50% = `r prettyNum(cover50, big.mark = ",")`
+*  number of uni-grams to cover 90% = `r prettyNum(cover90, big.mark = ",")`
+
+## Other Considerations
+
+### Foreign Words
+
+Some unigrams found are obviously come from a foreign languages. These could be
+programitally identified by excluding those containing non-ASCII characters. 
+They, however, do not make up a large enough percentage to warrant adding them
+to a stopwords list.
+
+### Methods to Increase Coverage
+
+As shown with the coverage estimates, a reduced dictionary could be used to 
+practically produce similiar results.
 
 --------------------------------------------------------

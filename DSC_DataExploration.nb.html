@@ -1759,7 +1759,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Data Science Capstone - Data Exploration</h1>
 <h4 class="author"><em>Michael Coote</em></h4>
-<h4 class="date"><em>2/24/2019</em></h4>
+<h4 class="date"><em>3/4/2019</em></h4>
 
 </div>
 
@@ -1769,139 +1769,247 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <div id="objective" class="section level2">
 <h2>Objective</h2>
-<p>Data Science Capston Project</p>
+<p>Data Science Capstone Project</p>
 </div>
 <div id="get-the-dataset" class="section level2">
 <h2>Get the dataset</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MTAsIm5yb3ciOjEyfSwicmRmIjoiSDRzSUFBQUFBQUFBQTlWVnoyc1RRUlNlN0NhR0xta3NlTE1LM2t0U1VEejB0a0piQ0ZncUNkSDRvNnlUM1VreWRuZTI3azVJOFcvdzFwT0NwNTY5ZVJGUlJCQVI5T3loNEVXUWFpOGV2UmlkbjJHMlRRNHBYdkpnNW52djdUZjVYbWJlN05aWFc1ZWRsZ01Bc0lCZHlBSExabTdlWWxNTzVNRWN4MTBBN0hQTTRhUXlHeVczZVI5d2MyOTk3M0J6NndvZnJFdkVMNTh3ZStvRzM2NXdjKzllVXZ6SG41aDlkbGV1Uzl4YWtieXR0L0w1SFpsWFdpVXd0ZG56Y2wzdXhYUWo4NGNMZmdqVGxEa0xScklZK3pTS0E4VGNJZE1SKzNEdHk0VTNQNWJmL1JFSWw1WUVXdWs5amtlVkJISDgrWHJ2dmNER3pVT1IzLzk5SkRCOC9sRGdxdy83WXQzZVFVSGd4MmMxZ2NQYjI3SXU2NjhxeGRLbDNOaHMxRm8rVmVFWkVkS1pLZXpYMTNJOWk1c0gvd3RQVVJoUUxXTWZUamRPdlc1QnJGT0ZSZGp2UVJUT1JqalR0V2V2T0lFUjBsZmMwZHdVUDBMZVJsdHpjQnJnUkFWNWNmZlZnNGppYUJUNFpnQ053TzdqUUx2ZGtWdm9jMm5kaU4xRVJObmk1cEo0VURVTDFEdSsyTUVFaHNzQjhsYlg1Rnh0aDNFM3JkSmQzZHJuVDFJSUdwaU1peWNaZElBcFJZbEJVa3FJZU0yR25DY3BtWlR4U2laam9sSUhlK3MxT1U5U01pbmpsVXpHUktXazc5V2JjcDZrWkZMR0s1a01VeW43K3RFSDZnU1F3bW9uRVVmTjN6bVo0eTdHT3hUSGhCMjJ4Yit5UlNDL2ZqazFUTi84MFZ4eUxIRzJUM2pUQkJXLzF5ZmJsYXZIMXM0ckxCbStJMHV4ZGNIRlVWTkR2NmViTkkvOFhxd2JGcEV1SnFOMkQyRjdkTlBLckd0RjAxWjNFa3owZmprc3kvWXZwbER6SEQ4T2RVYStnSWYvQUhteTdBK0VDQUFBIn0= -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6MTJ9LCJyZGYiOiJINHNJQUFBQUFBQUFBd3R5aVREaWl1QmlZR0JnWW1CbVpXUmdZZ1l5V1ppQUJDTURDd01uaUs1Z1lHQVdCaXRnWU9BRFloNkgwQVFHRUhBSWY1WUdBZzVCVURyTERVSm43cHdKQkxNY1VoNGJnNEJEdEFKVWZjOFpJRGpyWU9rRG9XTXRJZXBpRDBEa295RGlRUHZBOWpoZWwvZXRLWGx6R1V4dkVNZ0IwMmFsWmlDNmJ1NEtIekN0V0xzVFJOZHVXcXdQb3VzTlp0OEZpNy9jV0FubVIzaVZndlU5bStFUFZxZjR0d2hNaDVsWG9YbVVOVGtuc2JnWXlCQUFleFlpeUI3Z0grd1prVndDNWJLQnVTVkExajkwM1htSnVha1l1b3N6cTFMamZaTmdhbkpMTW5OVDBUUnlGdVdYNnlGcjVvRktTS2RsNWlYbTZLZWt4cnU0UWtpOXBKejg5R0s5a2dxWWM2UXdsZVNsbGlPcmtNVlVVVktlV1ZLU1dvU2tDR3BUYWw1OGFEQ0V4R1VUc2hMc05pR3J3R2xUV21hOG15ZUV4R1VUc2hMc05pR3J3R2xUVVdsOFVDaUV4R1VUc2hMc05pR3JRTFlKSEpGTS82SHhCb3RRcnBURWtrUzl0S0pFVUZSanBCUDIvSUtTelB3OFlHUXpnVElWTzBnRFdCcUNrZG5JaGpJV29RbndsK2FCRWsyS2JuSkdhVjYycmlHYVhsNG96WVBFWm9JNGhSbm1ZSFo0d2s5TXpraUZjbGhTa3pQeVlhazlOUzg5TXc4bXc1cVRtSlNhQStYd0FWTXRPTkhxRlJSbDVzSENpd3NvQ2d5Ly9KSkVtRHF1NVB3Y21BZzRNQmorQVFEZ3lqWjNjd1FBQUE9PSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["size_Mb"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["isdir"],"name":[2],"type":["lgl"],"align":["right"]},{"label":["mode"],"name":[3],"type":["S3: octmode"],"align":["right"]},{"label":["mtime"],"name":[4],"type":["S3: POSIXct"],"align":["right"]},{"label":["ctime"],"name":[5],"type":["S3: POSIXct"],"align":["right"]},{"label":["atime"],"name":[6],"type":["S3: POSIXct"],"align":["right"]},{"label":["uid"],"name":[7],"type":["int"],"align":["right"]},{"label":["gid"],"name":[8],"type":["int"],"align":["right"]},{"label":["uname"],"name":[9],"type":["chr"],"align":["left"]},{"label":["grname"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"85.5","2":"FALSE","3":"664","4":"2019-02-24 15:16:36","5":"2019-02-24 15:16:36","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/de_DE/de_DE.blogs.txt"},{"1":"95.6","2":"FALSE","3":"664","4":"2019-02-24 15:16:37","5":"2019-02-24 15:16:37","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/de_DE/de_DE.news.txt"},{"1":"75.6","2":"FALSE","3":"664","4":"2019-02-24 15:16:36","5":"2019-02-24 15:16:36","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/de_DE/de_DE.twitter.txt"},{"1":"210.2","2":"FALSE","3":"664","4":"2019-02-24 15:16:44","5":"2019-02-24 15:16:44","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/en_US/en_US.blogs.txt"},{"1":"205.8","2":"FALSE","3":"664","4":"2019-02-24 15:16:42","5":"2019-02-24 15:16:42","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/en_US/en_US.news.txt"},{"1":"167.1","2":"FALSE","3":"664","4":"2019-02-24 15:16:41","5":"2019-02-24 15:16:41","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/en_US/en_US.twitter.txt"},{"1":"108.5","2":"FALSE","3":"664","4":"2019-02-24 15:16:46","5":"2019-02-24 15:16:46","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/fi_FI/fi_FI.blogs.txt"},{"1":"94.2","2":"FALSE","3":"664","4":"2019-02-24 15:16:45","5":"2019-02-24 15:16:45","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/fi_FI/fi_FI.news.txt"},{"1":"25.3","2":"FALSE","3":"664","4":"2019-02-24 15:16:46","5":"2019-02-24 15:16:46","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/fi_FI/fi_FI.twitter.txt"},{"1":"116.9","2":"FALSE","3":"664","4":"2019-02-24 15:16:38","5":"2019-02-24 15:16:38","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/ru_RU/ru_RU.blogs.txt"},{"1":"119.0","2":"FALSE","3":"664","4":"2019-02-24 15:16:39","5":"2019-02-24 15:16:39","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/ru_RU/ru_RU.news.txt"},{"1":"105.2","2":"FALSE","3":"664","4":"2019-02-24 15:16:39","5":"2019-02-24 15:16:39","6":"2019-02-24 15:17:07","7":"1000","8":"1000","9":"michael","10":"michael","_rn_":"final/ru_RU/ru_RU.twitter.txt"}],"options":{"columns":{"min":{},"max":[10],"total":[10]},"rows":{"min":[10],"max":[10],"total":[12]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["size_Mb"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["mtime"],"name":[2],"type":["S3: POSIXct"],"align":["right"]}],"data":[{"1":"85.5","2":"2019-03-04 09:28:01","_rn_":"final/de_DE/de_DE.blogs.txt"},{"1":"95.6","2":"2019-03-04 09:28:02","_rn_":"final/de_DE/de_DE.news.txt"},{"1":"75.6","2":"2019-03-04 09:28:00","_rn_":"final/de_DE/de_DE.twitter.txt"},{"1":"210.2","2":"2019-03-04 09:28:10","_rn_":"final/en_US/en_US.blogs.txt"},{"1":"205.8","2":"2019-03-04 09:28:08","_rn_":"final/en_US/en_US.news.txt"},{"1":"167.1","2":"2019-03-04 09:28:06","_rn_":"final/en_US/en_US.twitter.txt"},{"1":"108.5","2":"2019-03-04 09:28:12","_rn_":"final/fi_FI/fi_FI.blogs.txt"},{"1":"94.2","2":"2019-03-04 09:28:11","_rn_":"final/fi_FI/fi_FI.news.txt"},{"1":"25.3","2":"2019-03-04 09:28:13","_rn_":"final/fi_FI/fi_FI.twitter.txt"},{"1":"116.9","2":"2019-03-04 09:28:03","_rn_":"final/ru_RU/ru_RU.blogs.txt"},{"1":"119.0","2":"2019-03-04 09:28:04","_rn_":"final/ru_RU/ru_RU.news.txt"},{"1":"105.2","2":"2019-03-04 09:28:05","_rn_":"final/ru_RU/ru_RU.twitter.txt"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[12]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Total size of data = 1408.9 Mb in 12 files.</p>
+<p>Total size of corpus = 1,408.9 Mb in 12 files.</p>
 </div>
 <div id="file-exploration" class="section level2">
 <h2>File Exploration</h2>
-<p>Show Filenames and first line of each file</p>
+<p>Show Filenames and first line of each file, limited to 60 characters:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlsZXNfZGF0YVxuYGBgIn0= -->
-<pre class="r"><code>files_data</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29ycHVzX3NtIDwtIHNhcHBseShmaWxlc19jb3JwdXMsIHJlYWRfbGluZXMsIG5fbWF4ID0gMSlcbmVuZnJhbWUoc3Vic3RyKGNvcnB1c19zbSwgMSwgc0xlbikpXG5gYGAifQ== -->
+<pre class="r"><code>corpus_sm &lt;- sapply(files_corpus, read_lines, n_max = 1)
+enframe(substr(corpus_sm, 1, sLen))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcImZpbmFsL2RlX0RFL2RlX0RFLmJsb2dzLnR4dFwiICAgXCJmaW5hbC9kZV9ERS9kZV9ERS5uZXdzLnR4dFwiICAgIFwiZmluYWwvZGVfREUvZGVfREUudHdpdHRlci50eHRcIlxuIFs0XSBcImZpbmFsL2VuX1VTL2VuX1VTLmJsb2dzLnR4dFwiICAgXCJmaW5hbC9lbl9VUy9lbl9VUy5uZXdzLnR4dFwiICAgIFwiZmluYWwvZW5fVVMvZW5fVVMudHdpdHRlci50eHRcIlxuIFs3XSBcImZpbmFsL2ZpX0ZJL2ZpX0ZJLmJsb2dzLnR4dFwiICAgXCJmaW5hbC9maV9GSS9maV9GSS5uZXdzLnR4dFwiICAgIFwiZmluYWwvZmlfRkkvZmlfRkkudHdpdHRlci50eHRcIlxuWzEwXSBcImZpbmFsL3J1X1JVL3J1X1JVLmJsb2dzLnR4dFwiICAgXCJmaW5hbC9ydV9SVS9ydV9SVS5uZXdzLnR4dFwiICAgIFwiZmluYWwvcnVfUlUvcnVfUlUudHdpdHRlci50eHRcIlxuIn0= -->
-<pre><code> [1] &quot;final/de_DE/de_DE.blogs.txt&quot;   &quot;final/de_DE/de_DE.news.txt&quot;    &quot;final/de_DE/de_DE.twitter.txt&quot;
- [4] &quot;final/en_US/en_US.blogs.txt&quot;   &quot;final/en_US/en_US.news.txt&quot;    &quot;final/en_US/en_US.twitter.txt&quot;
- [7] &quot;final/fi_FI/fi_FI.blogs.txt&quot;   &quot;final/fi_FI/fi_FI.news.txt&quot;    &quot;final/fi_FI/fi_FI.twitter.txt&quot;
-[10] &quot;final/ru_RU/ru_RU.blogs.txt&quot;   &quot;final/ru_RU/ru_RU.news.txt&quot;    &quot;final/ru_RU/ru_RU.twitter.txt&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YSA8LSBsYXBwbHkoZmlsZXNfZGF0YSwgcmVhZF9saW5lcywgbl9tYXggPSAxKVxubmFtZXMoZGF0YSkgPC0gZmlsZXNfZGF0YV9zaFxuZGF0YVxuYGBgIn0= -->
-<pre class="r"><code>data &lt;- lapply(files_data, read_lines, n_max = 1)
-names(data) &lt;- files_data_sh
-data</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJGRlX0RFLmJsb2dzLnR4dFxuWzFdIFwiSXJnZW5kd2FubiB3aXJkIGVzIFplaXQuIEljaCBzY2hsZXBwZSBlcyBqYSBhdWNoIGplZGVuIFRhZyBtaXQgbWlyIGhlcnVtLiBEYSBsZWlkZXQgZXMgc2Nob24gZWluIHdlbmlnLiBOaWNodCBudXIgZGllIFRhc3RlbiBnZWhlbiBrYXB1dHQsIGF1Y2ggaGFiZSBpY2ggaW1tZXIgd2llZGVyIGF1ZiBlaW4gbWFsIGtlaW4gTmV0eiB3byBpY2ggZnLDvGhlciBrZWluZSBQcm9ibGVtZSBoYXR0ZS4gV292b24gaWNoIHJlZGU/IE1laW4gSGFuZHkuIEVpbiBIVEMgU21hcnRwaG9uZSwgY2EgMiw1IEphaHJlIGFsdC5cIlxuXG4kZGVfREUubmV3cy50eHRcblsxXSBcIkRhcyBSZXplcHQgZsO8ciBpaHJlIFNjaG9rb2JyZXpsbiBoYXQgZGllIDYwLUrDpGhyaWdlIHNjaG9uIHZvciAyNiBKYWhyZW4gaW4gZWluZXIgw7ZzdGVycmVpY2hpc2NoZW4gU2VuZHVuZyBlbnRkZWNrdC4gTWl0dGxlcndlaWxlIGtvbW1lbm4gc2llIGplZGVzIEphaHIgenUgV2VpaG5hY2h0ZW4gYXVmIGRlbiBUZWxsZXIuIFRodXJuZXIgaGF0IHNpY2ggaGV1ZXIgZGFzIGVyc3RlIE1hbCBiZWltIFp1Y2tlcmd1c3MtTWFnYXppbiBiZXdvcmJlbiwgb2J3b2hsIHNpZSBzY2hvbiDDtmZ0ZXIgbWFsIFJlemVwdGUgZGFyYXVzIG5hY2ggZ2ViYWNrZW4gaGF0LiBTaWUgZXJ6w6RobHQ6IOKAnkljaCBoYWJlIGRhcyBSZXplcHQgZsO8ciBkaWUgU2Nob2tvYnJlemxuIG5vY2ggbmllIGlyZ2VuZHdvIGdlc2VoZW4uIERhIGhhYmUgaWNoIGVzIGVpbmdlc2NoaWNrdC7igJwgTGFjaGVuZCBmw7xndCBzaWUgaGluenU6IOKAnlVuZCBpY2ggd29sbHRlIHVuYmVkaW5ndCBkaWVzZSBTY2jDvHJ6ZS7igJxcIlxuXG4kZGVfREUudHdpdHRlci50eHRcblsxXSBcImlyZ2VuZHdhcyBzdGltbXQgbXV0IG1laW5lbSBpbnRlcm5ldCBhbSBwYyBuaWNoIDooXCJcblxuJGVuX1VTLmJsb2dzLnR4dFxuWzFdIFwiSW4gdGhlIHllYXJzIHRoZXJlYWZ0ZXIsIG1vc3Qgb2YgdGhlIE9pbCBmaWVsZHMgYW5kIHBsYXRmb3JtcyB3ZXJlIG5hbWVkIGFmdGVyIHBhZ2FuIOKAnGdvZHPigJ0uXCJcblxuJGVuX1VTLm5ld3MudHh0XG5bMV0gXCJIZSB3YXNuJ3QgaG9tZSBhbG9uZSwgYXBwYXJlbnRseS5cIlxuXG4kZW5fVVMudHdpdHRlci50eHRcblsxXSBcIkhvdyBhcmUgeW91PyBCdHcgdGhhbmtzIGZvciB0aGUgUlQuIFlvdSBnb25uYSBiZSBpbiBEQyBhbnl0aW1lIHNvb24/IExvdmUgdG8gc2VlIHlvdS4gQmVlbiB3YXksIHdheSB0b28gbG9uZy5cIlxuXG4kZmlfRkkuYmxvZ3MudHh0XG5bMV0gXCJTdXVuIGthdXR0YSBhbm5ldHR1IEQtdml0YW1paW5pLCAxMDAgbWlrcm9ncmFtbWFhICjCtWcpIHDDpGl2w6Rzc8OkLCBsaWV2aXR0w6TDpCBqYSBwYXJhbnRhYSBhdG9vcHBpc3RhIGlob3R0dW1hYSwgaWxtZW5lZSBLYWxpZm9ybmlhbiB5bGlvcGlzdG9uIHR1dGtpbXVrc2VzdGEuIEQtdml0YW1paW5pIGF1dHRhYSBpaG9hIHR1b3R0YW1hYW4gdHVsZWhkdWtzZWx0YSBzdW9qYWF2YWEgeWhkaXN0ZXR0w6QsIGthdGVsaXNpZGlpbmnDpCwgam90YSBvbiBub3JtYWFsaXN0aWtpbiBpaG9zc2EgcGllbmnDpCBtw6TDpHJpw6QuXCJcblxuJGZpX0ZJLm5ld3MudHh0XG5bMV0gXCJPbmtvIHNpbnVhIG1pZWxlc3TDpHNpIGtvaGRlbHR1IHN5bnR5bmVlbiBrb2h1biBhaWthbmEgYXNpYWxsaXNlc3RpP1wiXG5cbiRmaV9GSS50d2l0dGVyLnR4dFxuWzFdIFwiSW5zcGlyb2l2YWEga2lyam9pdHRhYSBzaXPDpGxsw6QgbMOkbXBpbcOkc3PDpCwga3VuIHVsa29uYSB0dXVsaSB0dWl2ZXJ0YWEgamEgcGFra2FuZW4gcGF1a2t1dS5cIlxuXG4kcnVfUlUuYmxvZ3MudHh0XG5bMV0gXCLQndCw0YHRgtCw0LvQviDQstGA0LXQvNGPINC4INC80L3QtSDQv9C+0LTQtdC70LjRgtGM0YHRjyDRh9C10Lwt0L3QuNCx0YPQtNGMINGB0LvQsNC00LrQuNC8ISEhINCj0LbQtSDRgdC+0LLRgdC10Lwg0YHQutC+0YDQviDQvdCw0YHRgtGD0L/QuNGCINCd0L7QstGL0Lkg0LPQvtC0LCDQuCDQv9C+0Y3RgtC+0LzRgyDQvNC+0Y8g0LrQvtC90YTQtdC60LAg0L/QvtGB0LLRj9GJ0LDQtdGC0YHRjyDRjdGC0L7QvNGDINGH0YPQtNC10YHQvdC+0LzRgyDQv9GA0LDQt9C00L3QuNC60YMhXCJcblxuJHJ1X1JVLm5ld3MudHh0XG5bMV0gXCLQodC70L7QstC+0LwsINC/0L7Qu9C1INC00LvRjyDQtNC10Y/RgtC10LvRjNC90L7RgdGC0Lgg0LHQvtC70YzRiNC+0LUuINCc0L7QttC90L4g0LTQsNC20LUg0L3QtSDQv9GA0LjQsdC10LPQsNGC0Ywg0Log0L/QvtC80L7RidC4INC40L3RgtC10YDQvdC10YIt0YHQvtC+0LHRidC10YHRgtCy0LAg0Lgg0YHRjdC60L7QvdC+0LzQuNGC0Ywg0YbQtdC90L3Ri9C1INC/0YDQuNC30YsuINCQINCy0LzQtdGB0YLQviDRjdGC0L7Qs9C+INGB0LDQvNC40Lwg0L/QvtCy0YLQvtGA0LjRgtGMINGI0LrQvtC70YzQvdGL0Lkg0LrRg9GA0YEg0LvQuNGC0LXRgNCw0YLRg9GA0YsuINCj0LYg0L7RgiDRjdGC0L7Qs9C+LdGC0L4g0L/QvtC70YzQt9CwINGC0L7Rh9C90L4g0LHRg9C00LXRgi5cIlxuXG4kcnVfUlUudHdpdHRlci50eHRcblsxXSBcItC/0L7QvNGL0LvQsCDRgSDQsdC+0LXQvCDQuCDQvNC+0LTQvdGL0Lwg0YjQsNC80L/Rg9C90LXQvCDQutC+0YLRjSwg0LAg0L7QvdC+INC/0YDQuNGI0LvQviDQuCDRgdGC0YDRj9GF0LjQstCw0LXRgiDQstGB0Y4g0LLQvtC00YMg0LzQvdC1INCyINC80L7QvdC40YLQvtGAISAtINC80YHRgtC40YIsINGB0YPQui4uKVwiXG4ifQ== -->
-<pre><code>$de_DE.blogs.txt
-[1] &quot;Irgendwann wird es Zeit. Ich schleppe es ja auch jeden Tag mit mir herum. Da leidet es schon ein wenig. Nicht nur die Tasten gehen kaputt, auch habe ich immer wieder auf ein mal kein Netz wo ich früher keine Probleme hatte. Wovon ich rede? Mein Handy. Ein HTC Smartphone, ca 2,5 Jahre alt.&quot;
-
-$de_DE.news.txt
-[1] &quot;Das Rezept für ihre Schokobrezln hat die 60-Jährige schon vor 26 Jahren in einer österreichischen Sendung entdeckt. Mittlerweile kommenn sie jedes Jahr zu Weihnachten auf den Teller. Thurner hat sich heuer das erste Mal beim Zuckerguss-Magazin beworben, obwohl sie schon öfter mal Rezepte daraus nach gebacken hat. Sie erzählt: „Ich habe das Rezept für die Schokobrezln noch nie irgendwo gesehen. Da habe ich es eingeschickt.“ Lachend fügt sie hinzu: „Und ich wollte unbedingt diese Schürze.“&quot;
-
-$de_DE.twitter.txt
-[1] &quot;irgendwas stimmt mut meinem internet am pc nich :(&quot;
-
-$en_US.blogs.txt
-[1] &quot;In the years thereafter, most of the Oil fields and platforms were named after pagan “gods”.&quot;
-
-$en_US.news.txt
-[1] &quot;He wasn't home alone, apparently.&quot;
-
-$en_US.twitter.txt
-[1] &quot;How are you? Btw thanks for the RT. You gonna be in DC anytime soon? Love to see you. Been way, way too long.&quot;
-
-$fi_FI.blogs.txt
-[1] &quot;Suun kautta annettu D-vitamiini, 100 mikrogrammaa (µg) päivässä, lievittää ja parantaa atooppista ihottumaa, ilmenee Kalifornian yliopiston tutkimuksesta. D-vitamiini auttaa ihoa tuottamaan tulehdukselta suojaavaa yhdistettä, katelisidiiniä, jota on normaalistikin ihossa pieniä määriä.&quot;
-
-$fi_FI.news.txt
-[1] &quot;Onko sinua mielestäsi kohdeltu syntyneen kohun aikana asiallisesti?&quot;
-
-$fi_FI.twitter.txt
-[1] &quot;Inspiroivaa kirjoittaa sisällä lämpimässä, kun ulkona tuuli tuivertaa ja pakkanen paukkuu.&quot;
-
-$ru_RU.blogs.txt
-[1] &quot;Настало время и мне поделиться чем-нибудь сладким!!! Уже совсем скоро наступит Новый год, и поэтому моя конфека посвящается этому чудесному празднику!&quot;
-
-$ru_RU.news.txt
-[1] &quot;Словом, поле для деятельности большое. Можно даже не прибегать к помощи интернет-сообщества и сэкономить ценные призы. А вместо этого самим повторить школьный курс литературы. Уж от этого-то польза точно будет.&quot;
-
-$ru_RU.twitter.txt
-[1] &quot;помыла с боем и модным шампунем котэ, а оно пришло и стряхивает всю воду мне в монитор! - мстит, сук..)&quot;</code></pre>
-<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6MTJ9LCJyZGYiOiJINHNJQUFBQUFBQUFBM1ZWVFc4YlJSamVPQ2xSSTc0a2JrVkliMDRVeVRacER4d1F0QUlNYXJoVVNscXBjSWttM3JGM3NyTXpxNWxadSs0cERVSWdFWlEvQUFlRWY0QWJraXBxbkZUQ2YyRDJ2M0J1ZUdjOUd4WTNQc3pzK0pubmZaN25IYS9IRzYxSHQxY2VyUVJCVUFzV3J5MEV0VVZjTHRWd1dnaVdndXZ1K1RnSUZ0OHJDRUh3TG80My9jYjdIU1lJL3ppa1c2MnZwM056bTh1dWJwckh4bE51dkU0UnRGOWxmUEE2dy9TWk1WUlZTTjZKaXEySG05TjVubE9WY3JWVGxUSFhxY08ydmxtZnp2T2NxcFNybmFxTXVVNHEyOXA0T0ozbk9WVXBWenRWR1ZXbi8zOWZuNjJyTGhWaG53Z0JmYVpDb0JxK3A4dzBZYjBkZ1c1SG5LWXBkZWdPQVpJaHRrTkRLdUFCNlVJU0JMdE80MDZMYU5pZ1QyaHFvRE1aSzJDUm9yRFpqbVFzdHhWOXdnVkV4RURJS0h5eTF2aDJNb3dVNjFJbkxnWDBwRTl5bS9ra0dyUmhTV0lneVhCUUptZ0NUR0I4UVEyUUJOSTJDSVpCUHIxNTJZTUFFMUVZVUtLMFd5bEtPc2l2UXlLMUFka3BkdTh6RGgxR2VhaUJpQkJTVGt4SHFzUnJyTjZqZ05iaVF3T1JUQ2dRTGdXdEEwbFRvcWd3Zk5Bc3plN0pQaUFHQTVuZGhTOU5IOFdKaURXZ1dPR3o4YUFKMzhrTXVsSUlBdHNVczBQcksvUWNHT1lQN081bWxnbUlTV1lNSHFyQXZrd0dyVWFQR1pJd0psZ2RicTJ0UWNKaUpidUtKQWtoY1BQdjQrNUhrRTZHckRjWmVwblA3NHRZZ21ZaUkwaW1uR296R1dvR3NZeEN5bEZTRDRRWkNJcGZGMExvU0ZoTU1CUFJqSER1UmI1WUZ6cGxTcklldXNSTTdVaDhWWENwbVo0TU9aOE1BVWVTc2dTbEVhbERqRUlaanlVS21TempETHdRdDcvYlVmNDAzN01qZTJyUHdSN211L2JZanZNRHNDZGd4L2JNSG9OOWFjL3RFY0tuOWlUZnkvZVJmd0Q1VDQ3WFFNS0pmWmIvWUkveWZjaWZJbVdFMUJjSWpsZFhWOEgrYVorakFtNmMyMFB2S2V3Znpzc2U0aGpYcCtxbnp1YkluanBmZE1vUE1CSDY1ZnVvZjE3a3d6VFBIQkh0ZjhibmNSUHNiL2g4N2dpdVpsUVkrYnpZQktaQ2hiL3M2TEpUNXpQT2YzRVJNZEJVRGx2d2pib096M0IzREtnL1F1QWxOblUySmJ6QURIdjVyNWgxQkVnc0hBc1BwQmFuZGdJdVk3Nkx1WDlFNThPWmkvZWFJQW5WL2tkYzgrQ1NBMHRDai9DTXpsUmRWN0xmTEN2ZmNwVzdPRjFjWFB3eks5L21SSmZ5SmJnU0VrT2FIZVZNZ3VEVlRNbXlUQTJUQW90cTdnOWgyUlVVMjlOUlhWZEZGOVFNOEU0bVhNS3cwY1pYTlc3Y3F0UUdQdlZDY1hIOXQ2NU5vOVF1dk5UeVpSZWtIWlVIc2tUeG52SHJONmpvNG4xUzBqalpwdHgvZUJ1UHFEaWhacXJ3dGlsYlJ4VHZWbWxJeVZ0cFMxNGl4V0VFci80Rll0a3BpeThIQUFBPSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["value"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"final/de_DE/de_DE.blogs.txt","2":"Irgendwann wird es Zeit. Ich schleppe es ja auch jeden Tag m"},{"1":"final/de_DE/de_DE.news.txt","2":"Das Rezept für ihre Schokobrezln hat die 60-Jährige schon vo"},{"1":"final/de_DE/de_DE.twitter.txt","2":"irgendwas stimmt mut meinem internet am pc nich :("},{"1":"final/en_US/en_US.blogs.txt","2":"In the years thereafter, most of the Oil fields and platform"},{"1":"final/en_US/en_US.news.txt","2":"He wasn't home alone, apparently."},{"1":"final/en_US/en_US.twitter.txt","2":"How are you? Btw thanks for the RT. You gonna be in DC anyti"},{"1":"final/fi_FI/fi_FI.blogs.txt","2":"Suun kautta annettu D-vitamiini, 100 mikrogrammaa (µg) päivä"},{"1":"final/fi_FI/fi_FI.news.txt","2":"Onko sinua mielestäsi kohdeltu syntyneen kohun aikana asiall"},{"1":"final/fi_FI/fi_FI.twitter.txt","2":"Inspiroivaa kirjoittaa sisällä lämpimässä, kun ulkona tuuli"},{"1":"final/ru_RU/ru_RU.blogs.txt","2":"Настало время и мне поделиться чем-нибудь сладким!!! Уже сов"},{"1":"final/ru_RU/ru_RU.news.txt","2":"Словом, поле для деятельности большое. Можно даже не прибега"},{"1":"final/ru_RU/ru_RU.twitter.txt","2":"помыла с боем и модным шампунем котэ, а оно пришло и стряхив"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[12]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Find US files only</p>
+<p>Find the US files only and load into memory.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlsZXNfZGF0YV9VUyA8LSBmaWxlc19kYXRhW2dyZXBsKFwiVVNcIiwgZmlsZXNfZGF0YSldXG5maWxlc19kYXRhX3NoX1VTIDwtIGZpbGVzX2RhdGFfc2hbZ3JlcGwoXCJVU1wiLCBmaWxlc19kYXRhX3NoKV1cbmBgYCJ9 -->
-<pre class="r"><code>files_data_US &lt;- files_data[grepl(&quot;US&quot;, files_data)]
-files_data_sh_US &lt;- files_data_sh[grepl(&quot;US&quot;, files_data_sh)]</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlsZXNfY29ycHVzX1VTIDwtIGZpbGVzX2NvcnB1c1tncmVwbChcIlVTXCIsIGZpbGVzX2NvcnB1cyldXG5maWxlc19jb3JwdXNfc2hfVVMgPC0gZmlsZXNfY29ycHVzX3NoW2dyZXBsKFwiVVNcIiwgZmlsZXNfY29ycHVzX3NoKV1cbmNvcnB1cyA8LSBsYXBwbHkoZmlsZXNfY29ycHVzX1VTLCByZWFkX2xpbmVzKVxubmFtZXMoY29ycHVzKSA8LSBmaWxlc19jb3JwdXNfc2hfVVNcbmNvcnB1c19zaXplMSA9IG9iamVjdC5zaXplKGNvcnB1cylcbmBgYCJ9 -->
+<pre class="r"><code>files_corpus_US &lt;- files_corpus[grepl(&quot;US&quot;, files_corpus)]
+files_corpus_sh_US &lt;- files_corpus_sh[grepl(&quot;US&quot;, files_corpus_sh)]
+corpus &lt;- lapply(files_corpus_US, read_lines)
+names(corpus) &lt;- files_corpus_sh_US
+corpus_size1 = object.size(corpus)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Load all US into memory</p>
+<p>The files <em>en_US.blogs.txt</em>, <em>en_US.news.txt</em> and <em>en_US.twitter.txt</em> are loaded. They are using 831.7 Mb of memory.</p>
+<p>Each file has the following number of rows:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YSA8LSBsYXBwbHkoZmlsZXNfZGF0YV9VUywgcmVhZF9saW5lcylcbm5hbWVzKGRhdGEpIDwtIGZpbGVzX2RhdGFfc2hfVVNcbm5hbWVzKGRhdGEpXG5gYGAifQ== -->
-<pre class="r"><code>data &lt;- lapply(files_data_US, read_lines)
-names(data) &lt;- files_data_sh_US
-names(data)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZW5mcmFtZShwcmV0dHlOdW0obGFwcGx5KGNvcnB1cywgbGVuZ3RoKSwgYmlnLm1hcmsgPSBcIixcIiksIFxuICAgICAgICBuYW1lID0gXCJmaWxlXCIsIHZhbHVlID0gXCJyb3dzXCIpIFxuYGBgIn0= -->
+<pre class="r"><code>enframe(prettyNum(lapply(corpus, length), big.mark = &quot;,&quot;), 
+        name = &quot;file&quot;, value = &quot;rows&quot;) </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiZW5fVVMuYmxvZ3MudHh0XCIgICBcImVuX1VTLm5ld3MudHh0XCIgICAgXCJlbl9VUy50d2l0dGVyLnR4dFwiXG4ifQ== -->
-<pre><code>[1] &quot;en_US.blogs.txt&quot;   &quot;en_US.news.txt&quot;    &quot;en_US.twitter.txt&quot;</code></pre>
-<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMlIzMjZESUJUR2ovaW4wV1RybHIyR0plck1ZdS8zQkZ1VzlHNmhsclptREJxbHNaZDc4ZFVCUXVxOEFBKy93L2NKSDIrdm15TFpKQUNBd0E4OVFMNHFBNlFtRHdLSTlmY0M0RCtaRFFBUGF2aTJzYVQ4OCtNZGI1azRkRmhlcE1YM0krYTBuOUxIa2NxK2taSzJwdkhmYlZHdDEybFJWWFlaNTJtV1oybFJGZzRVNmZOTGx1WmxOVHRmeU1rMzdhd2JzakRZTjR5NnVoVjlOeFBGaW1FbnZOUENIelVOdy9BN2Q2OFo2Wnk3ZzhtT1NJTDNyZEtyMVhVbVdZaVRiQVJYSXFSamk3VEF0TWN4TmZMYUdWaWV1VDdWYmxVZnoveHJWVTYwWUUvcW1kQnVOUnAvandackZibHIwL29vYkIxUmZtaTRDeVJrWkV1WmV5NlZoQWtDbjlxR3UrZEtkR1pZQ2tuY3ZxUVd6QkZ6WjdqK0FVTjd5QkU4QWdBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file"],"name":[1],"type":["chr"],"align":["left"]},{"label":["rows"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"en_US.blogs.txt","2":"899,288"},{"1":"en_US.news.txt","2":"1,010,242"},{"1":"en_US.twitter.txt","2":"2,360,148"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>File space in memory = 831.7 Mb</p>
-<p>Show number of lines in each file</p>
+<p>Sampling 1/10 of the rows for more efficient processing.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJldHR5TnVtKGxhcHBseShkYXRhLCBsZW5ndGgpLCBiaWcubWFyayA9IFwiLFwiKVxuXG5gYGAifQ== -->
-<pre class="r"><code>prettyNum(lapply(data, length), big.mark = &quot;,&quot;)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29ycHVzIDwtIGxhcHBseShjb3JwdXMsIGZ1bmN0aW9uKGMpIHsgXG4gIGxlbiA8LSBsZW5ndGgoYylcbiAgc2FtU2l6ZSA8LSByb3VuZChsZW4vc2FtLCAwKVxuICBjIDwtIGNbc2FtcGxlKGxlbiwgc2FtU2l6ZSldXG59KVxuY29ycHVzX3NpemUyID0gb2JqZWN0LnNpemUoY29ycHVzKVxuYGBgIn0= -->
+<pre class="r"><code>corpus &lt;- lapply(corpus, function(c) { 
+  len &lt;- length(c)
+  samSize &lt;- round(len/sam, 0)
+  c &lt;- c[sample(len, samSize)]
+})
+corpus_size2 = object.size(corpus)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICBlbl9VUy5ibG9ncy50eHQgICAgZW5fVVMubmV3cy50eHQgZW5fVVMudHdpdHRlci50eHQgXG4gICAgICAgIFwiODk5LDI4OFwiICAgICAgIFwiMSwwMTAsMjQyXCIgICAgICAgXCIyLDM2MCwxNDhcIiBcbiJ9 -->
-<pre><code>  en_US.blogs.txt    en_US.news.txt en_US.twitter.txt 
-        &quot;899,288&quot;       &quot;1,010,242&quot;       &quot;2,360,148&quot; </code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>The following number of randomly selected rows from each file are being used:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZW5mcmFtZShwcmV0dHlOdW0obGFwcGx5KGNvcnB1cywgbGVuZ3RoKSwgYmlnLm1hcmsgPSBcIixcIiksIFxuICAgICAgICBuYW1lID0gXCJmaWxlXCIsIHZhbHVlID0gXCJyb3dzXCIpIFxuYGBgIn0= -->
+<pre class="r"><code>enframe(prettyNum(lapply(corpus, length), big.mark = &quot;,&quot;), 
+        name = &quot;file&quot;, value = &quot;rows&quot;) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVJ5MDdETUJEY09JK3FrYUFnZmlPMWtoUVF1Zk1Gb0VxOW9UUjEyd2hqVjRtcjlNaVAwMkE3WGhGeXNMMDd1ek5lajk5ZU4zbThpUUdBZ0I5NlFId2RCa1J2SGdRd04rY0Z3SCt3RFFCM2V2bXVzR0RpWS8xT3Qxd2VXcW91eXNHM0F5eFlOMGJ2QjFSMXRWS3NzWVgvYXRGTGtSUjU0YkpabG1aSm1qOWltcStla3pSN21vd1dpdktMdFU2SU9ERFkxNXhoM01pdW5aRG1HcU5JdkRIRWI3MzFmZjh6VmE5NDJhSTZndkd1VkNYZE41cXZzK3VFTXBNblZVdWhTY1E0RmhtQ0xROXJMT1ExRTJCeEZtYXEzYkk2bnNYbmNqWGlncHZVczM3OXhXUzRudlJPS3NKbnMrb28wVmNtRHJWQVEwSmViaG5IbjlKT1dDUG9xYWtGL2xSc1BLTktxaEw3NGtweVJPeWI0Zm9MN1RoeTREY0NBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["file"],"name":[1],"type":["chr"],"align":["left"]},{"label":["rows"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"en_US.blogs.txt","2":"89,929"},{"1":"en_US.news.txt","2":"101,024"},{"1":"en_US.twitter.txt","2":"236,015"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>They are now using 83.4 Mb of memory.</p>
+<div id="data-cleaning" class="section level3">
+<h3>Data Cleaning</h3>
+<p>Using the tm package, the corpus is cleaned</p>
+<ul>
+<li>Remove common english stopwords</li>
+<li>To lower case</li>
+<li>Remove punctuation</li>
+<li>Remove numbers</li>
+<li>Strip whitespace</li>
+<li>Converts to plain text format</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29ycHVzIDwtIFZDb3JwdXMoVmVjdG9yU291cmNlKGNvcnB1cykpXG5jb3JwdXMgPC0gdG1fbWFwKGNvcnB1cywgcmVtb3ZlV29yZHMsIHN0b3B3b3JkcyhcImVuXCIpKVxuY29ycHVzIDwtIHRtX21hcChjb3JwdXMsIHRvbG93ZXIpXG5jb3JwdXMgPC0gdG1fbWFwKGNvcnB1cywgcmVtb3ZlUHVuY3R1YXRpb24pXG5jb3JwdXMgPC0gdG1fbWFwKGNvcnB1cywgcmVtb3ZlTnVtYmVycylcbmNvcnB1cyA8LSB0bV9tYXAoY29ycHVzLCBzdHJpcFdoaXRlc3BhY2UpXG5jb3JwdXMgPC0gdG1fbWFwKGNvcnB1cywgUGxhaW5UZXh0RG9jdW1lbnQpXG5uYW1lcyhjb3JwdXMpIDwtIGdzdWIoJ2VuX1VTLnwudHh0JywgXCJcIiwgZmlsZXNfY29ycHVzX3NoX1VTKVxuYGBgIn0= -->
+<pre class="r"><code>corpus &lt;- VCorpus(VectorSource(corpus))
+corpus &lt;- tm_map(corpus, removeWords, stopwords(&quot;en&quot;))
+corpus &lt;- tm_map(corpus, tolower)
+corpus &lt;- tm_map(corpus, removePunctuation)
+corpus &lt;- tm_map(corpus, removeNumbers)
+corpus &lt;- tm_map(corpus, stripWhitespace)
+corpus &lt;- tm_map(corpus, PlainTextDocument)
+names(corpus) &lt;- gsub('en_US.|.txt', &quot;&quot;, files_corpus_sh_US)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
 </div>
 <div id="exploratory-analysis" class="section level2">
 <h2>Exploratory Analysis</h2>
 <div id="word-distribution-and-relationships" class="section level3">
 <h3>Word Distribution and Relationships</h3>
-<ol style="list-style-type: decimal">
-<li>Some words are more frequent than others - what are the distributions of word frequencies?</li>
-<li>What are the frequencies of 2-grams and 3-grams in the dataset?</li>
-<li>How many unique words do you need in a frequency sorted dictionary to cover 50% of all word instances in the language? 90%?</li>
-<li>How do you evaluate how many of the words come from foreign languages?</li>
-<li>Can you think of a way to increase the coverage – identifying words that may not be in the corpora or using a smaller number of words in the dictionary to cover the same number of phrases?</li>
-</ol>
+<p>Dictionaries of unigrams, bigrams and trigrams are built and their distributions are examined.</p>
+<div id="unigrams" class="section level4">
+<h4>Unigrams</h4>
+<p>The wordcloud package is used to illustrate the most common word frequencies for each document along with a histogram of the top 20 most frequent words.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9yKGkgaW4gMTpsZW5ndGgoY29ycHVzKSkge1xuICBubSA8LSBuYW1lcyhjb3JwdXMpW2ldXG4gIHdvcmRjbG91ZChjb3JwdXNbaV0sIG1heC53b3JkcyA9IDgwLCBjb2xvcnM9YnJld2VyLnBhbCg4LCBcIkFjY2VudFwiKSwgXG4gICAgICAgICAgICByYW5kb20ub3JkZXIgPSBGQUxTRSwgcm90LnBlciA9IDAuNDUsIHNjYWxlID0gYygzLCAxKSlcbiAgdGl0bGUobm0pXG59XG5gYGAifQ== -->
+<pre class="r"><code>for(i in 1:length(corpus)) {
+  nm &lt;- names(corpus)[i]
+  wordcloud(corpus[i], max.words = 80, colors=brewer.pal(8, &quot;Accent&quot;), 
+            random.order = FALSE, rot.per = 0.45, scale = c(3, 1))
+  title(nm)
+}</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Also, a histogram, segmented by word source, shows the overall distribution of unigrams.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGRtIDwtIGFzLm1hdHJpeChUZXJtRG9jdW1lbnRNYXRyaXgoY29ycHVzKSlcbnRkbSA8LSBhc190aWJibGUodGRtLCByb3duYW1lcyA9IFwid29yZFwiKVxudGRtIDwtIHRkbSAlPiUgXG4gIG11dGF0ZShhbGwgPSBibG9ncyArIG5ld3MgKyB0d2l0dGVyKSAlPiUgXG4gIGFycmFuZ2UoZGVzYyhhbGwpKVxudGRtIDwtIHRkbSAlPiUgbXV0YXRlKHJ1bm5pbmdDb3VudCA9IGN1bXN1bShhbGwpKVxudGRtX3dvcmRMZXZlbHMgPC0gdW5pcXVlKHRkbSR3b3JkKVxudGRtX3RvcCA8LSB0ZG1bMToyMCwgYyhcIndvcmRcIiwgXCJibG9nc1wiLCBcIm5ld3NcIiwgXCJ0d2l0dGVyXCIpXSAlPiUgXG4gIGdhdGhlcihrZXkgPSBcInNvdXJjZVwiLCB2YWx1ZSA9IFwiY291bnRcIiwgMjo0KVxudGRtX3RvcCR3b3JkIDwtIGFzX2ZhY3Rvcih0ZG1fdG9wJHdvcmQpXG5wIDwtIGdncGxvdChkYXRhID0gdGRtX3RvcCwgXG4gICAgICAgICAgICBhZXMoeCA9IHdvcmQsIHkgPSBjb3VudCwgZmlsbCA9IHNvdXJjZSksIFxuICAgICAgICAgICAgY29sb3IgPSBicmV3ZXIucGFsKDMsIFwiQWNjZW50XCIpKSArIFxuICBnZW9tX2JhcihzdGF0ID0gXCJpZGVudGl0eVwiKSArIFxuICB0aGVtZV9idygpICsgdGhlbWUobGVnZW5kLnBvc2l0aW9uID0gYygwLjksMC44KSlcbnByaW50KHApXG5gYGAifQ== -->
+<pre class="r"><code>tdm &lt;- as.matrix(TermDocumentMatrix(corpus))
+tdm &lt;- as_tibble(tdm, rownames = &quot;word&quot;)
+tdm &lt;- tdm %&gt;% 
+  mutate(all = blogs + news + twitter) %&gt;% 
+  arrange(desc(all))
+tdm &lt;- tdm %&gt;% mutate(runningCount = cumsum(all))
+tdm_wordLevels &lt;- unique(tdm$word)
+tdm_top &lt;- tdm[1:20, c(&quot;word&quot;, &quot;blogs&quot;, &quot;news&quot;, &quot;twitter&quot;)] %&gt;% 
+  gather(key = &quot;source&quot;, value = &quot;count&quot;, 2:4)
+tdm_top$word &lt;- as_factor(tdm_top$word)
+p &lt;- ggplot(data = tdm_top, 
+            aes(x = word, y = count, fill = source), 
+            color = brewer.pal(3, &quot;Accent&quot;)) + 
+  geom_bar(stat = &quot;identity&quot;) + 
+  theme_bw() + theme(legend.position = c(0.9,0.8))
+print(p)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="bigrams" class="section level4">
+<h4>Bigrams</h4>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmlncmFtVG9rZW5pemVyIDwtIGZ1bmN0aW9uKHgpIHtcbiAgdW5saXN0KGxhcHBseShuZ3JhbXMod29yZHMoeCksIDIpLCBwYXN0ZSwgY29sbGFwc2UgPSBcIiBcIiksIHVzZS5uYW1lcyA9IEZBTFNFKVxufVxudGRtX2JpZ3JhbXMgPC0gYXMubWF0cml4KFxuICBUZXJtRG9jdW1lbnRNYXRyaXgoY29ycHVzLCBjb250cm9sID0gbGlzdCh0b2tlbml6ZSA9IGJpZ3JhbVRva2VuaXplcikpKVxudGRtX2JpZ3JhbXMgPC0gYXNfdGliYmxlKHRkbV9iaWdyYW1zLCByb3duYW1lcyA9IFwiYmlncmFtXCIpXG50ZG1fYmlncmFtcyA8LSB0ZG1fYmlncmFtcyAlPiUgXG4gIG11dGF0ZShhbGwgPSBibG9ncyArIG5ld3MgKyB0d2l0dGVyKSAlPiUgXG4gIGFycmFuZ2UoZGVzYyhhbGwpKVxudGRtX2JpZ3JhbXNbMToyMCxdXG5gYGAifQ== -->
+<pre class="r"><code>bigramTokenizer &lt;- function(x) {
+  unlist(lapply(ngrams(words(x), 2), paste, collapse = &quot; &quot;), use.names = FALSE)
+}
+tdm_bigrams &lt;- as.matrix(
+  TermDocumentMatrix(corpus, control = list(tokenize = bigramTokenizer)))
+tdm_bigrams &lt;- as_tibble(tdm_bigrams, rownames = &quot;bigram&quot;)
+tdm_bigrams &lt;- tdm_bigrams %&gt;% 
+  mutate(all = blogs + news + twitter) %&gt;% 
+  arrange(desc(all))
+tdm_bigrams[1:20,]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="trigrams" class="section level4">
+<h4>Trigrams</h4>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJpZ3JhbVRva2VuaXplciA8LSBmdW5jdGlvbih4KSB7XG4gIHVubGlzdChsYXBwbHkobmdyYW1zKHdvcmRzKHgpLCAzKSwgcGFzdGUsIGNvbGxhcHNlID0gXCIgXCIpLCB1c2UubmFtZXMgPSBGQUxTRSlcbn1cbnRkbV90cmlncmFtcyA8LSBhcy5tYXRyaXgoXG4gIFRlcm1Eb2N1bWVudE1hdHJpeChjb3JwdXMsIGNvbnRyb2wgPSBsaXN0KHRva2VuaXplID0gdHJpZ3JhbVRva2VuaXplcikpKVxudGRtX3RyaWdyYW1zIDwtIGFzX3RpYmJsZSh0ZG1fdHJpZ3JhbXMsIHJvd25hbWVzID0gXCJ0cmlncmFtXCIpXG50ZG1fdHJpZ3JhbXMgPC0gdGRtX3RyaWdyYW1zICU+JSBcbiAgbXV0YXRlKGFsbCA9IGJsb2dzICsgbmV3cyArIHR3aXR0ZXIpICU+JSBcbiAgYXJyYW5nZShkZXNjKGFsbCkpXG50ZG1fdHJpZ3JhbXNbMToyMCxdXG5gYGAifQ== -->
+<pre class="r"><code>trigramTokenizer &lt;- function(x) {
+  unlist(lapply(ngrams(words(x), 3), paste, collapse = &quot; &quot;), use.names = FALSE)
+}
+tdm_trigrams &lt;- as.matrix(
+  TermDocumentMatrix(corpus, control = list(tokenize = trigramTokenizer)))
+tdm_trigrams &lt;- as_tibble(tdm_trigrams, rownames = &quot;trigram&quot;)
+tdm_trigrams &lt;- tdm_trigrams %&gt;% 
+  mutate(all = blogs + news + twitter) %&gt;% 
+  arrange(desc(all))
+tdm_trigrams[1:20,]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="ngram-coverage" class="section level3">
+<h3>nGram Coverage</h3>
+<p>A fraction of the words in a frequency sorted dictionary can be used to cover most of the the total word instances in the set.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGRtIDwtIHRkbSAlPiUgbXV0YXRlKHJ1bm5pbmdDb3VudCA9IGN1bXN1bShhbGwpKVxudG90YWxVbmlncmFtcyA8LSBzdW0odGRtJGFsbClcbmNvdmVyNTAgPC0gd2hpY2goYWJzKHRkbSRydW5uaW5nQ291bnQgLSAoMC41ICogdG90YWxVbmlncmFtcykpID09IFxuICAgICAgICBtaW4oYWJzKHRkbSRydW5uaW5nQ291bnQgLSAoMC41ICogdG90YWxVbmlncmFtcykpKSlcbmNvdmVyOTAgPC0gd2hpY2goYWJzKHRkbSRydW5uaW5nQ291bnQgLSAoMC45ICogdG90YWxVbmlncmFtcykpID09IFxuICAgICAgICBtaW4oYWJzKHRkbSRydW5uaW5nQ291bnQgLSAoMC45ICogdG90YWxVbmlncmFtcykpKSlcbmBgYCJ9 -->
+<pre class="r"><code>tdm &lt;- tdm %&gt;% mutate(runningCount = cumsum(all))
+totalUnigrams &lt;- sum(tdm$all)
+cover50 &lt;- which(abs(tdm$runningCount - (0.5 * totalUnigrams)) == 
+        min(abs(tdm$runningCount - (0.5 * totalUnigrams))))
+cover90 &lt;- which(abs(tdm$runningCount - (0.9 * totalUnigrams)) == 
+        min(abs(tdm$runningCount - (0.9 * totalUnigrams))))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ul>
+<li>total uni-grams present = 5,635,073</li>
+<li>number of uni-grams to cover 50% = 976</li>
+<li>number of uni-grams to cover 90% = 17,184</li>
+</ul>
+</div>
+</div>
+<div id="other-considerations" class="section level2">
+<h2>Other Considerations</h2>
+<div id="foreign-words" class="section level3">
+<h3>Foreign Words</h3>
+<p>Some unigrams found are obviously come from a foreign languages. These could be programitally identified by excluding those containing non-ASCII characters. They, however, do not make up a large enough percentage to warrant adding them to a stopwords list.</p>
+</div>
+<div id="methods-to-increase-coverage" class="section level3">
+<h3>Methods to Increase Coverage</h3>
+<p>As shown with the coverage estimates, a reduced dictionary could be used to practically produce similiar results.</p>
 <hr />
 <!-- rnb-text-end -->
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGF0YSBTY2llbmNlIENhcHN0b25lIC0gRGF0YSBFeHBsb3JhdGlvbiIKYXV0aG9yOiAiTWljaGFlbCBDb290ZSIKZGF0ZTogIjIvMjQvMjAxOSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkKbGlicmFyeSh0aWR5dmVyc2UpCmBgYAoKIyMgT2JqZWN0aXZlCgpEYXRhIFNjaWVuY2UgQ2Fwc3RvbiBQcm9qZWN0CgojIyBHZXQgdGhlIGRhdGFzZXQKCmBgYHtyLCBjYWNoZT1UUlVFfQp1cmxfZiA8LSAKICAiaHR0cHM6Ly9kMzk2cXVzemE0MG9yYy5jbG91ZGZyb250Lm5ldC9kc3NjYXBzdG9uZS9kYXRhc2V0L0NvdXJzZXJhLVN3aWZ0S2V5LnppcCIKZmlsZV9kYXRhIDwtICJDb3Vyc2VyYS1Td2lmdEtleS56aXAiCiMgZG93bmxvYWQuZmlsZSh1cmwgPSB1cmxfZiwgZGVzdGZpbGUgPSBmaWxlX2RhdGEpCmZpbGUgPC0gbGlzdC5maWxlcyhwYXR0ZXJuID0gInppcCIsIGZ1bGwubmFtZXMgPSBUUlVFKQpmaWxlLnNpemUoZmlsZSkgLyAxZTYKdW56aXAoZmlsZSkKZm9sZGVyIDwtICJmaW5hbCIKZmlsZXNfZGF0YSA8LSBsaXN0LmZpbGVzKGZvbGRlciwgZnVsbC5uYW1lcyA9IFRSVUUsIHJlY3Vyc2l2ZSA9IFRSVUUpCmZpbGVzX2RhdGFfc2ggPC0gbGlzdC5maWxlcyhmb2xkZXIsIGZ1bGwubmFtZXMgPSBGQUxTRSwgcmVjdXJzaXZlID0gVFJVRSkKZmlsZXNfZGF0YV9zaCA8LSBnc3ViKCJeKC4qKS8iLCAiIiwgZmlsZXNfZGF0YV9zaCkKZmlsZXNfZGF0YV9pbmZvIDwtIGZpbGUuaW5mbyhmaWxlc19kYXRhLCByZWN1cnNpdmUgPSBUUlVFKQpmaWxlc19kYXRhX2luZm8kc2l6ZSA8LSByb3VuZChmaWxlc19kYXRhX2luZm8kc2l6ZSAvIDFlNiwgMSkKZmlsZXNfZGF0YV9pbmZvIDwtIHJlbmFtZShmaWxlc19kYXRhX2luZm8sIHNpemVfTWIgPSBzaXplKQpmaWxlc19kYXRhX2luZm8KYGBgCgpUb3RhbCBzaXplIG9mIGRhdGEgPSBgciBzdW0oZmlsZXNfZGF0YV9pbmZvJHNpemVfTWIpYCBNYiBpbiAKYHIgbnJvdyhmaWxlc19kYXRhX2luZm8pYCBmaWxlcy4KCiMjIEZpbGUgRXhwbG9yYXRpb24KClNob3cgRmlsZW5hbWVzIGFuZCBmaXJzdCBsaW5lIG9mIGVhY2ggZmlsZQoKYGBge3IsIGNhY2hlPVRSVUV9CmZpbGVzX2RhdGEKZGF0YSA8LSBsYXBwbHkoZmlsZXNfZGF0YSwgcmVhZF9saW5lcywgbl9tYXggPSAxKQpuYW1lcyhkYXRhKSA8LSBmaWxlc19kYXRhX3NoCmRhdGEKYGBgCgpGaW5kIFVTIGZpbGVzIG9ubHkgCgpgYGB7cn0KZmlsZXNfZGF0YV9VUyA8LSBmaWxlc19kYXRhW2dyZXBsKCJVUyIsIGZpbGVzX2RhdGEpXQpmaWxlc19kYXRhX3NoX1VTIDwtIGZpbGVzX2RhdGFfc2hbZ3JlcGwoIlVTIiwgZmlsZXNfZGF0YV9zaCldCmBgYAoKTG9hZCBhbGwgVVMgaW50byBtZW1vcnkKCmBgYHtyfQpkYXRhIDwtIGxhcHBseShmaWxlc19kYXRhX1VTLCByZWFkX2xpbmVzKQpuYW1lcyhkYXRhKSA8LSBmaWxlc19kYXRhX3NoX1VTCm5hbWVzKGRhdGEpCmBgYAoKRmlsZSBzcGFjZSBpbiBtZW1vcnkgPSBgciBmb3JtYXQob2JqZWN0LnNpemUoZGF0YSksIHVuaXRzID0gIk1iIilgCgpTaG93IG51bWJlciBvZiBsaW5lcyBpbiBlYWNoIGZpbGUKCmBgYHtyfQpwcmV0dHlOdW0obGFwcGx5KGRhdGEsIGxlbmd0aCksIGJpZy5tYXJrID0gIiwiKQpgYGAKCiMjIEV4cGxvcmF0b3J5IEFuYWx5c2lzCgojIyMgV29yZCBEaXN0cmlidXRpb24gYW5kIFJlbGF0aW9uc2hpcHMKCjEuIFNvbWUgd29yZHMgYXJlIG1vcmUgZnJlcXVlbnQgdGhhbiBvdGhlcnMgLSB3aGF0IGFyZSB0aGUgZGlzdHJpYnV0aW9ucyBvZiB3b3JkCmZyZXF1ZW5jaWVzPwoxLiBXaGF0IGFyZSB0aGUgZnJlcXVlbmNpZXMgb2YgMi1ncmFtcyBhbmQgMy1ncmFtcyBpbiB0aGUgZGF0YXNldD8KMS4gSG93IG1hbnkgdW5pcXVlIHdvcmRzIGRvIHlvdSBuZWVkIGluIGEgZnJlcXVlbmN5IHNvcnRlZCBkaWN0aW9uYXJ5IHRvIGNvdmVyIAo1MCUgb2YgYWxsIHdvcmQgaW5zdGFuY2VzIGluIHRoZSBsYW5ndWFnZT8gOTAlPwoxLiBIb3cgZG8geW91IGV2YWx1YXRlIGhvdyBtYW55IG9mIHRoZSB3b3JkcyBjb21lIGZyb20gZm9yZWlnbiBsYW5ndWFnZXM/CjEuIENhbiB5b3UgdGhpbmsgb2YgYSB3YXkgdG8gaW5jcmVhc2UgdGhlIGNvdmVyYWdlIC0tIGlkZW50aWZ5aW5nIHdvcmRzIHRoYXQgbWF5IApub3QgYmUgaW4gdGhlIGNvcnBvcmEgb3IgdXNpbmcgYSBzbWFsbGVyIG51bWJlciBvZiB3b3JkcyBpbiB0aGUgZGljdGlvbmFyeSB0byAKY292ZXIgdGhlIHNhbWUgbnVtYmVyIG9mIHBocmFzZXM/CgpgYGB7cn0KCmBgYAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGF0YSBTY2llbmNlIENhcHN0b25lIC0gRGF0YSBFeHBsb3JhdGlvbiIKYXV0aG9yOiAiTWljaGFlbCBDb290ZSIKZGF0ZTogIjMvNC8yMDE5IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeSh0bSkKbGlicmFyeSh3b3JkY2xvdWQpCmxpYnJhcnkocGFuZGVyKQpsaWJyYXJ5KGdncGxvdDIpCmxpYnJhcnkoZ3JpZEV4dHJhKQpgYGAKCiMjIE9iamVjdGl2ZQoKRGF0YSBTY2llbmNlIENhcHN0b25lIFByb2plY3QKCiMjIEdldCB0aGUgZGF0YXNldAoKYGBge3IsIGNhY2hlPVRSVUV9CnVybF9mIDwtIAogICJodHRwczovL2QzOTZxdXN6YTQwb3JjLmNsb3VkZnJvbnQubmV0L2Rzc2NhcHN0b25lL2NvcnB1c3NldC9Db3Vyc2VyYS1Td2lmdEtleS56aXAiCmZpbGVfY29ycHVzIDwtICJDb3Vyc2VyYS1Td2lmdEtleS56aXAiCiMgZG93bmxvYWQuZmlsZSh1cmwgPSB1cmxfZiwgZGVzdGZpbGUgPSBmaWxlX2NvcnB1cykKZmlsZSA8LSBsaXN0LmZpbGVzKHBhdHRlcm4gPSAiemlwIiwgZnVsbC5uYW1lcyA9IFRSVUUpCnVuemlwKGZpbGUpCmZvbGRlciA8LSAiZmluYWwiCmZpbGVzX2NvcnB1cyA8LSBsaXN0LmZpbGVzKGZvbGRlciwgZnVsbC5uYW1lcyA9IFRSVUUsIHJlY3Vyc2l2ZSA9IFRSVUUpCmZpbGVzX2NvcnB1c19zaCA8LSBsaXN0LmZpbGVzKGZvbGRlciwgZnVsbC5uYW1lcyA9IEZBTFNFLCByZWN1cnNpdmUgPSBUUlVFKQpmaWxlc19jb3JwdXNfc2ggPC0gZ3N1YigiXiguKikvIiwgIiIsIGZpbGVzX2NvcnB1c19zaCkKZmlsZXNfY29ycHVzX2luZm8gPC0gZmlsZS5pbmZvKGZpbGVzX2NvcnB1cywgcmVjdXJzaXZlID0gVFJVRSkKZmlsZXNfY29ycHVzX2luZm8kc2l6ZSA8LSByb3VuZChmaWxlc19jb3JwdXNfaW5mbyRzaXplIC8gMWU2LCAxKQpmaWxlc19jb3JwdXNfaW5mbyA8LSByZW5hbWUoZmlsZXNfY29ycHVzX2luZm8sIHNpemVfTWIgPSBzaXplKQpmaWxlc19jb3JwdXNfaW5mb1ssIGMoInNpemVfTWIiLCAibXRpbWUiKV0KYGBgCgpUb3RhbCBzaXplIG9mIGNvcnB1cyA9IApgciBwcmV0dHlOdW0oc3VtKGZpbGVzX2NvcnB1c19pbmZvJHNpemVfTWIpLCBiaWcubWFyayA9ICIsIilgIE1iIGluIApgciBucm93KGZpbGVzX2NvcnB1c19pbmZvKWAgZmlsZXMuCgojIyBGaWxlIEV4cGxvcmF0aW9uCgpTaG93IEZpbGVuYW1lcyBhbmQgZmlyc3QgbGluZSBvZiBlYWNoIGZpbGUsIGxpbWl0ZWQgdG8gYHIgc0xlbiA9IDYwOyBzTGVuYCAKY2hhcmFjdGVyczoKCmBgYHtyLCBjYWNoZT1UUlVFfQpjb3JwdXNfc20gPC0gc2FwcGx5KGZpbGVzX2NvcnB1cywgcmVhZF9saW5lcywgbl9tYXggPSAxKQplbmZyYW1lKHN1YnN0cihjb3JwdXNfc20sIDEsIHNMZW4pKQpgYGAKCkZpbmQgdGhlIFVTIGZpbGVzIG9ubHkgYW5kIGxvYWQgaW50byBtZW1vcnkuCgpgYGB7cn0KZmlsZXNfY29ycHVzX1VTIDwtIGZpbGVzX2NvcnB1c1tncmVwbCgiVVMiLCBmaWxlc19jb3JwdXMpXQpmaWxlc19jb3JwdXNfc2hfVVMgPC0gZmlsZXNfY29ycHVzX3NoW2dyZXBsKCJVUyIsIGZpbGVzX2NvcnB1c19zaCldCmNvcnB1cyA8LSBsYXBwbHkoZmlsZXNfY29ycHVzX1VTLCByZWFkX2xpbmVzKQpuYW1lcyhjb3JwdXMpIDwtIGZpbGVzX2NvcnB1c19zaF9VUwpjb3JwdXNfc2l6ZTEgPSBvYmplY3Quc2l6ZShjb3JwdXMpCmBgYAoKVGhlIGZpbGVzIGByIHBhbmRlcihuYW1lcyhjb3JwdXMpKWAgYXJlIGxvYWRlZC4gVGhleSBhcmUgdXNpbmcgCmByIGZvcm1hdChjb3JwdXNfc2l6ZTEsIHVuaXRzID0gIk1iIilgIApvZiBtZW1vcnkuCgpFYWNoIGZpbGUgaGFzIHRoZSBmb2xsb3dpbmcgbnVtYmVyIG9mIHJvd3M6CgpgYGB7cn0KZW5mcmFtZShwcmV0dHlOdW0obGFwcGx5KGNvcnB1cywgbGVuZ3RoKSwgYmlnLm1hcmsgPSAiLCIpLCAKICAgICAgICBuYW1lID0gImZpbGUiLCB2YWx1ZSA9ICJyb3dzIikgCmBgYAoKU2FtcGxpbmcgMS9gciBzYW0gPSAxMDsgc2FtYCBvZiB0aGUgcm93cyBmb3IgbW9yZSBlZmZpY2llbnQgcHJvY2Vzc2luZy4KCmBgYHtyfQpjb3JwdXMgPC0gbGFwcGx5KGNvcnB1cywgZnVuY3Rpb24oYykgeyAKICBsZW4gPC0gbGVuZ3RoKGMpCiAgc2FtU2l6ZSA8LSByb3VuZChsZW4vc2FtLCAwKQogIGMgPC0gY1tzYW1wbGUobGVuLCBzYW1TaXplKV0KfSkKY29ycHVzX3NpemUyID0gb2JqZWN0LnNpemUoY29ycHVzKQpgYGAKClRoZSBmb2xsb3dpbmcgbnVtYmVyIG9mIHJhbmRvbWx5IHNlbGVjdGVkIHJvd3MgZnJvbSBlYWNoIGZpbGUgYXJlIGJlaW5nIHVzZWQ6CgpgYGB7cn0KZW5mcmFtZShwcmV0dHlOdW0obGFwcGx5KGNvcnB1cywgbGVuZ3RoKSwgYmlnLm1hcmsgPSAiLCIpLCAKICAgICAgICBuYW1lID0gImZpbGUiLCB2YWx1ZSA9ICJyb3dzIikgCmBgYAoKVGhleSBhcmUgbm93IHVzaW5nIApgciBmb3JtYXQoY29ycHVzX3NpemUyLCB1bml0cyA9ICJNYiIpYCAKb2YgbWVtb3J5LgoKIyMjIERhdGEgQ2xlYW5pbmcKClVzaW5nIHRoZSB0bSBwYWNrYWdlLCB0aGUgY29ycHVzIGlzIGNsZWFuZWQKCiogIFJlbW92ZSBjb21tb24gZW5nbGlzaCBzdG9wd29yZHMKKiAgVG8gbG93ZXIgY2FzZQoqICBSZW1vdmUgcHVuY3R1YXRpb24KKiAgUmVtb3ZlIG51bWJlcnMKKiAgU3RyaXAgd2hpdGVzcGFjZQoqICBDb252ZXJ0cyB0byBwbGFpbiB0ZXh0IGZvcm1hdAoKYGBge3J9CmNvcnB1cyA8LSBWQ29ycHVzKFZlY3RvclNvdXJjZShjb3JwdXMpKQpjb3JwdXMgPC0gdG1fbWFwKGNvcnB1cywgcmVtb3ZlV29yZHMsIHN0b3B3b3JkcygiZW4iKSkKY29ycHVzIDwtIHRtX21hcChjb3JwdXMsIHRvbG93ZXIpCmNvcnB1cyA8LSB0bV9tYXAoY29ycHVzLCByZW1vdmVQdW5jdHVhdGlvbikKY29ycHVzIDwtIHRtX21hcChjb3JwdXMsIHJlbW92ZU51bWJlcnMpCmNvcnB1cyA8LSB0bV9tYXAoY29ycHVzLCBzdHJpcFdoaXRlc3BhY2UpCmNvcnB1cyA8LSB0bV9tYXAoY29ycHVzLCBQbGFpblRleHREb2N1bWVudCkKbmFtZXMoY29ycHVzKSA8LSBnc3ViKCdlbl9VUy58LnR4dCcsICIiLCBmaWxlc19jb3JwdXNfc2hfVVMpCmBgYAoKIyMgRXhwbG9yYXRvcnkgQW5hbHlzaXMKCiMjIyBXb3JkIERpc3RyaWJ1dGlvbiBhbmQgUmVsYXRpb25zaGlwcwoKRGljdGlvbmFyaWVzIG9mIHVuaWdyYW1zLCBiaWdyYW1zIGFuZCB0cmlncmFtcyBhcmUgYnVpbHQgYW5kIHRoZWlyIGRpc3RyaWJ1dGlvbnMKYXJlIGV4YW1pbmVkLgoKIyMjIyBVbmlncmFtcwoKVGhlIHdvcmRjbG91ZCBwYWNrYWdlIGlzIHVzZWQgdG8gaWxsdXN0cmF0ZSB0aGUgbW9zdCBjb21tb24gd29yZCBmcmVxdWVuY2llcyBmb3IKZWFjaCBkb2N1bWVudCBhbG9uZyB3aXRoIGEgaGlzdG9ncmFtIG9mIHRoZSB0b3AgMjAgbW9zdCBmcmVxdWVudCB3b3Jkcy4KCmBgYHtyIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9CmZvcihpIGluIDE6bGVuZ3RoKGNvcnB1cykpIHsKICBubSA8LSBuYW1lcyhjb3JwdXMpW2ldCiAgd29yZGNsb3VkKGNvcnB1c1tpXSwgbWF4LndvcmRzID0gODAsIGNvbG9ycz1icmV3ZXIucGFsKDgsICJBY2NlbnQiKSwgCiAgICAgICAgICAgIHJhbmRvbS5vcmRlciA9IEZBTFNFLCByb3QucGVyID0gMC40NSwgc2NhbGUgPSBjKDMsIDEpKQogIHRpdGxlKG5tKQp9CmBgYAoKQWxzbywgYSBoaXN0b2dyYW0sIHNlZ21lbnRlZCBieSB3b3JkIHNvdXJjZSwgc2hvd3MgdGhlIG92ZXJhbGwgZGlzdHJpYnV0aW9uCm9mIHVuaWdyYW1zLgoKYGBge3J9CnRkbSA8LSBhcy5tYXRyaXgoVGVybURvY3VtZW50TWF0cml4KGNvcnB1cykpCnRkbSA8LSBhc190aWJibGUodGRtLCByb3duYW1lcyA9ICJ3b3JkIikKdGRtIDwtIHRkbSAlPiUgCiAgbXV0YXRlKGFsbCA9IGJsb2dzICsgbmV3cyArIHR3aXR0ZXIpICU+JSAKICBhcnJhbmdlKGRlc2MoYWxsKSkKdGRtIDwtIHRkbSAlPiUgbXV0YXRlKHJ1bm5pbmdDb3VudCA9IGN1bXN1bShhbGwpKQp0ZG1fd29yZExldmVscyA8LSB1bmlxdWUodGRtJHdvcmQpCnRkbV90b3AgPC0gdGRtWzE6MjAsIGMoIndvcmQiLCAiYmxvZ3MiLCAibmV3cyIsICJ0d2l0dGVyIildICU+JSAKICBnYXRoZXIoa2V5ID0gInNvdXJjZSIsIHZhbHVlID0gImNvdW50IiwgMjo0KQp0ZG1fdG9wJHdvcmQgPC0gYXNfZmFjdG9yKHRkbV90b3Akd29yZCkKcCA8LSBnZ3Bsb3QoZGF0YSA9IHRkbV90b3AsIAogICAgICAgICAgICBhZXMoeCA9IHdvcmQsIHkgPSBjb3VudCwgZmlsbCA9IHNvdXJjZSksIAogICAgICAgICAgICBjb2xvciA9IGJyZXdlci5wYWwoMywgIkFjY2VudCIpKSArIAogIGdlb21fYmFyKHN0YXQgPSAiaWRlbnRpdHkiKSArIAogIHRoZW1lX2J3KCkgKyB0aGVtZShsZWdlbmQucG9zaXRpb24gPSBjKDAuOSwwLjgpKQpwcmludChwKQpgYGAKCgoKIyMjIyBCaWdyYW1zCgpgYGB7cn0KYmlncmFtVG9rZW5pemVyIDwtIGZ1bmN0aW9uKHgpIHsKICB1bmxpc3QobGFwcGx5KG5ncmFtcyh3b3Jkcyh4KSwgMiksIHBhc3RlLCBjb2xsYXBzZSA9ICIgIiksIHVzZS5uYW1lcyA9IEZBTFNFKQp9CnRkbV9iaWdyYW1zIDwtIGFzLm1hdHJpeCgKICBUZXJtRG9jdW1lbnRNYXRyaXgoY29ycHVzLCBjb250cm9sID0gbGlzdCh0b2tlbml6ZSA9IGJpZ3JhbVRva2VuaXplcikpKQp0ZG1fYmlncmFtcyA8LSBhc190aWJibGUodGRtX2JpZ3JhbXMsIHJvd25hbWVzID0gImJpZ3JhbSIpCnRkbV9iaWdyYW1zIDwtIHRkbV9iaWdyYW1zICU+JSAKICBtdXRhdGUoYWxsID0gYmxvZ3MgKyBuZXdzICsgdHdpdHRlcikgJT4lIAogIGFycmFuZ2UoZGVzYyhhbGwpKQp0ZG1fYmlncmFtc1sxOjIwLF0KYGBgCgojIyMjIFRyaWdyYW1zCgpgYGB7cn0KdHJpZ3JhbVRva2VuaXplciA8LSBmdW5jdGlvbih4KSB7CiAgdW5saXN0KGxhcHBseShuZ3JhbXMod29yZHMoeCksIDMpLCBwYXN0ZSwgY29sbGFwc2UgPSAiICIpLCB1c2UubmFtZXMgPSBGQUxTRSkKfQp0ZG1fdHJpZ3JhbXMgPC0gYXMubWF0cml4KAogIFRlcm1Eb2N1bWVudE1hdHJpeChjb3JwdXMsIGNvbnRyb2wgPSBsaXN0KHRva2VuaXplID0gdHJpZ3JhbVRva2VuaXplcikpKQp0ZG1fdHJpZ3JhbXMgPC0gYXNfdGliYmxlKHRkbV90cmlncmFtcywgcm93bmFtZXMgPSAidHJpZ3JhbSIpCnRkbV90cmlncmFtcyA8LSB0ZG1fdHJpZ3JhbXMgJT4lIAogIG11dGF0ZShhbGwgPSBibG9ncyArIG5ld3MgKyB0d2l0dGVyKSAlPiUgCiAgYXJyYW5nZShkZXNjKGFsbCkpCnRkbV90cmlncmFtc1sxOjIwLF0KYGBgCgojIyMgbkdyYW0gQ292ZXJhZ2UKCkEgZnJhY3Rpb24gb2YgdGhlIHdvcmRzIGluIGEgZnJlcXVlbmN5IHNvcnRlZCBkaWN0aW9uYXJ5IGNhbiBiZSB1c2VkIHRvIApjb3ZlciBtb3N0IG9mIHRoZSB0aGUgdG90YWwgd29yZCBpbnN0YW5jZXMgaW4gdGhlIHNldC4KCmBgYHtyfQp0ZG0gPC0gdGRtICU+JSBtdXRhdGUocnVubmluZ0NvdW50ID0gY3Vtc3VtKGFsbCkpCnRvdGFsVW5pZ3JhbXMgPC0gc3VtKHRkbSRhbGwpCmNvdmVyNTAgPC0gd2hpY2goYWJzKHRkbSRydW5uaW5nQ291bnQgLSAoMC41ICogdG90YWxVbmlncmFtcykpID09IAogICAgICAgIG1pbihhYnModGRtJHJ1bm5pbmdDb3VudCAtICgwLjUgKiB0b3RhbFVuaWdyYW1zKSkpKQpjb3ZlcjkwIDwtIHdoaWNoKGFicyh0ZG0kcnVubmluZ0NvdW50IC0gKDAuOSAqIHRvdGFsVW5pZ3JhbXMpKSA9PSAKICAgICAgICBtaW4oYWJzKHRkbSRydW5uaW5nQ291bnQgLSAoMC45ICogdG90YWxVbmlncmFtcykpKSkKYGBgCgoqICB0b3RhbCB1bmktZ3JhbXMgcHJlc2VudCA9IGByIHByZXR0eU51bSh0b3RhbFVuaWdyYW1zLCBiaWcubWFyayA9ICIsIilgCiogIG51bWJlciBvZiB1bmktZ3JhbXMgdG8gY292ZXIgNTAlID0gYHIgcHJldHR5TnVtKGNvdmVyNTAsIGJpZy5tYXJrID0gIiwiKWAKKiAgbnVtYmVyIG9mIHVuaS1ncmFtcyB0byBjb3ZlciA5MCUgPSBgciBwcmV0dHlOdW0oY292ZXI5MCwgYmlnLm1hcmsgPSAiLCIpYAoKIyMgT3RoZXIgQ29uc2lkZXJhdGlvbnMKCiMjIyBGb3JlaWduIFdvcmRzCgpTb21lIHVuaWdyYW1zIGZvdW5kIGFyZSBvYnZpb3VzbHkgY29tZSBmcm9tIGEgZm9yZWlnbiBsYW5ndWFnZXMuIFRoZXNlIGNvdWxkIGJlCnByb2dyYW1pdGFsbHkgaWRlbnRpZmllZCBieSBleGNsdWRpbmcgdGhvc2UgY29udGFpbmluZyBub24tQVNDSUkgY2hhcmFjdGVycy4gClRoZXksIGhvd2V2ZXIsIGRvIG5vdCBtYWtlIHVwIGEgbGFyZ2UgZW5vdWdoIHBlcmNlbnRhZ2UgdG8gd2FycmFudCBhZGRpbmcgdGhlbQp0byBhIHN0b3B3b3JkcyBsaXN0LgoKIyMjIE1ldGhvZHMgdG8gSW5jcmVhc2UgQ292ZXJhZ2UKCkFzIHNob3duIHdpdGggdGhlIGNvdmVyYWdlIGVzdGltYXRlcywgYSByZWR1Y2VkIGRpY3Rpb25hcnkgY291bGQgYmUgdXNlZCB0byAKcHJhY3RpY2FsbHkgcHJvZHVjZSBzaW1pbGlhciByZXN1bHRzLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K</div>
 
 
 
