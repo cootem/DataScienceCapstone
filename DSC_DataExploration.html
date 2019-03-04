@@ -1743,7 +1743,7 @@ names(corpus) &lt;- gsub('en_US.|.txt', &quot;&quot;, files_corpus_sh_US)</code>
 <p>Dictionaries of unigrams, bigrams and trigrams are built and their distributions are examined.</p>
 <div id="unigrams" class="section level4">
 <h4>Unigrams</h4>
-<p>The wordcloud package is used to illustrate the most common word frequencies for each document along with a histogram of the top 20 most frequent words.</p>
+<p>The wordcloud package is used to illustrate the most common word frequencies for each document.</p>
 <pre class="r"><code>for(i in 1:length(corpus)) {
   nm &lt;- names(corpus)[i]
   wordcloud(corpus[i], max.words = 80, colors=brewer.pal(8, &quot;Accent&quot;), 
