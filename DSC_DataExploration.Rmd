@@ -1,7 +1,7 @@
 ---
 title: "Data Science Capstone - Data Exploration"
 author: "Michael Coote"
-date: "2/24/2019"
+date: "3/3/2019"
 output: html_notebook
 ---
 
@@ -9,82 +9,114 @@ output: html_notebook
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(tm)
-library(wordcloud2)
+library(wordcloud)
 library(pander)
 library(ggplot2)
+library(gridExtra)
 ```
 
 ## Objective
 
-Data Science Capston Project
+Data Science Capstone Project
 
 ## Get the dataset
 
 ```{r, cache=TRUE}
 url_f <- 
-  "https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip"
-file_data <- "Coursera-SwiftKey.zip"
-# download.file(url = url_f, destfile = file_data)
+  "https://d396qusza40orc.cloudfront.net/dsscapstone/corpusset/Coursera-SwiftKey.zip"
+file_corpus <- "Coursera-SwiftKey.zip"
+# download.file(url = url_f, destfile = file_corpus)
 file <- list.files(pattern = "zip", full.names = TRUE)
 file.size(file) / 1e6
 unzip(file)
 folder <- "final"
-files_data <- list.files(folder, full.names = TRUE, recursive = TRUE)
-files_data_sh <- list.files(folder, full.names = FALSE, recursive = TRUE)
-files_data_sh <- gsub("^(.*)/", "", files_data_sh)
-files_data_info <- file.info(files_data, recursive = TRUE)
-files_data_info$size <- round(files_data_info$size / 1e6, 1)
-files_data_info <- rename(files_data_info, size_Mb = size)
-files_data_info
+files_corpus <- list.files(folder, full.names = TRUE, recursive = TRUE)
+files_corpus_sh <- list.files(folder, full.names = FALSE, recursive = TRUE)
+files_corpus_sh <- gsub("^(.*)/", "", files_corpus_sh)
+files_corpus_info <- file.info(files_corpus, recursive = TRUE)
+files_corpus_info$size <- round(files_corpus_info$size / 1e6, 1)
+files_corpus_info <- rename(files_corpus_info, size_Mb = size)
+files_corpus_info
 ```
 
-Total size of data = `r sum(files_data_info$size_Mb)` Mb in 
-`r nrow(files_data_info)` files.
+Total size of corpus = `r sum(files_corpus_info$size_Mb)` Mb in 
+`r nrow(files_corpus_info)` files.
 
 ## File Exploration
 
-Show Filenames and first line of each file
+Show Filenames and first line of each file, limited to 80 characters:
 
 ```{r, cache=TRUE}
-data <- sapply(files_data, read_lines, n_max = 1)
-data
+corpus_sm <- sapply(files_corpus, read_lines, n_max = 1)
+enframe(substr(corpus_sm, 1, 80))
 ```
 
 Find the US files only load into memory.
 
 ```{r}
-files_data_US <- files_data[grepl("US", files_data)]
-files_data_sh_US <- files_data_sh[grepl("US", files_data_sh)]
-data <- lapply(files_data_US, read_lines)
-names(data) <- files_data_sh_US
+files_corpus_US <- files_corpus[grepl("US", files_corpus)]
+files_corpus_sh_US <- files_corpus_sh[grepl("US", files_corpus_sh)]
+corpus <- lapply(files_corpus_US, read_lines, n_max = 1e4)
+names(corpus) <- files_corpus_sh_US
 ```
 
-The files `r pander(names(data))` are loaded. They are using 
-`r format(object.size(data), units = "Mb")` of memory.
+The files `r pander(names(corpus))` are loaded. They are using 
+`r format(object.size(corpus), units = "Mb")` of memory.
 
 Each file has the following number of rows:
 
 ```{r}
-enframe(prettyNum(lapply(data, length), big.mark = ","), 
+enframe(prettyNum(lapply(corpus, length), big.mark = ","), 
         name = "file", value = "rows") 
 ```
 
 ### Data Cleaning
 
-The US files are 
+Using the tm package, the corpus is cleaned
+
+*  Remove common english stopwords
+*  To lower case
+*  Remove punctuation
+*  Remove numbers
+*  Strip whitespace
+*  Converts to plain text format
+
+```{r}
+corpus <- VCorpus(VectorSource(corpus))
+corpus <- tm_map(corpus, removeWords, stopwords("en"))
+corpus <- tm_map(corpus, tolower)
+corpus <- tm_map(corpus, removePunctuation)
+corpus <- tm_map(corpus, removeNumbers)
+corpus <- tm_map(corpus, stripWhitespace)
+corpus <- tm_map(corpus, PlainTextDocument)
+names(corpus) <- gsub('en_US.|.txt', "", files_corpus_sh_US)
+```
 
 ## Exploratory Analysis
 
 ### Word Distribution and Relationships
 
-Some words are more frequent than others - what are the distributions of word
-frequencies?
+The wordcloud package is used to illustrate the most common word frequencies for
+each document.
 
 ```{r}
-
+dtm <- as.matrix(TermDocumentMatrix(corpus))
+dtm <- as_tibble(dtm, rownames = "word")
+for(i in 1:length(corpus)) {
+  nm <- names(corpus)[i]
+  wordcloud(corpus[i], max.words = 80, colors=brewer.pal(8, "Accent"), 
+            random.order = FALSE, rot.per = 0.45, scale = c(3, 1))
+  title(nm)
+  ngrams <- dtm[order(-dtm[nm]), c("word", nm)]
+  ngrams <- ngrams[1:20,]
+  data$word <- as_factor(ngrams$word)
+  p <- ggplot(data = ngrams, aes_string(x = "word", y = nm)) + 
+    geom_bar(stat = "identity") + theme_bw()
+  print(p)
+  }
 ```
 
-What are the frequencies of 2-grams and 3-grams in the dataset?
+What are the frequencies of 2-grams and 3-grams in the corpusset?
 
 ```{r}
 
