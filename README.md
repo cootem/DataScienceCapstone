@@ -10,3 +10,7 @@ See the GitHub Pages page, [Data Science Capstone](https://cootem.github.io/Data
 An analysis of text data and natural language processing delivered as a Data
 Science Product.
 
+## Deliverables
+
+*  [Data Exploration](DSC_DataExploration.html)
+
