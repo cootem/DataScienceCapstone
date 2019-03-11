@@ -1,0 +1,54 @@
+---
+title: "NLP - algorithm testing"
+author: "Michael Coote"
+date: "3/10/2019"
+output: html_notebook
+---
+
+
+```{r setup}
+source("NLP_FUNS.R")
+```
+
+```{r createCorpus, echo=TRUE}
+corpus <- loadCorpus(folder = "final", filter = "US", sampleN = 4)
+gc()
+```
+
+show number of lines loaded and total memory
+
+```{r checkSize}
+sapply(corpus, length)
+format(object.size(corpus), units = "Mb")
+```
+
+```{r clean}
+corpus <- cleanCorpus(corpus)
+```
+
+```{r buildNgrams}
+trigrams <- buildNGrams(corpus, "trigram")
+bigrams <- buildNGrams(corpus, "bigram")
+unigrams <- buildNGrams(corpus, "unigram")
+```
+
+```{r exploreNgrams}
+rows <- c(nrow(unigrams), nrow(bigrams), nrow(trigrams))
+names(rows) <- names(corpus)
+prettyNum(rows, big.mark = ",")
+```
+
+Backup nGrams
+
+```{r}
+save(unigrams, bigrams, trigrams, file = "nGrams.RData")
+```
+
+Lookup next words
+
+```{r}
+phrase <- "a case of"
+nextWord(bigrams, trigrams, phrase) %>% head
+```
+
+
