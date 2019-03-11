@@ -32,3 +32,4 @@ scratch.nb.html
 DSC_DataExploration.Rmd
 DSC_DataExploration_files/*
 README.html
+*.RData
