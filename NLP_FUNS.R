@@ -3,10 +3,11 @@
 # Functions to support Capstone Project
 #
 # Michael Coote
-# March, 2019
+# 3/17/2019
 
 library(tidyverse)
 library(tm)
+library(data.table)
 
 getCorpusFiles <- function(url_f = "") {
   if(url_f == "") url_f <- 
@@ -68,7 +69,15 @@ buildNGrams <- function(corpus, ngramType = "unigram") {
     arrange(desc(all))
 }
 
+enhanceNgram <- function(ngram) {
+  # convert to data table
+  # store last word in differnet column
+  # index on first column
+  # use only good ngrams, top x
+}
+
 nextWord <- function(bigrams, trigrams, phrase) {
+  # enhance to use second column of data table
   pWords <- tolower(words(phrase))
   nWords <- length(pWords)
   pTrunc <- paste(pWords[(nWords-1):nWords], collapse = " ")

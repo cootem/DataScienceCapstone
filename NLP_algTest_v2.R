@@ -1,6 +1,6 @@
 #### NLP - algorithm testing ####
 # Michael Coote
-# 3/10/2019
+# 3/17/2019
 
 source("NLP_FUNS.R")
 
@@ -16,6 +16,7 @@ phrase <- "his little"
 # phrase_cleaned
 
 # limit corpus to only items containing this phrase
+# change to limit corpus based on top ngrams for building higher ngrams
 corpus <- lapply(corpus_all, function(f) f[grepl(phrase, f)])
 format(object.size(corpus), units = "Kb")
 
