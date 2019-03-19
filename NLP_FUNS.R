@@ -7,6 +7,7 @@
 
 library(tidyverse)
 library(tm)
+library(tm.plugin.webmining)
 library(data.table)
 
 getCorpusFiles <- function(url_f = "") {
@@ -41,29 +42,53 @@ loadCorpus <- function(folder = "final", filter = "US", sampleN = 100) {
 }
 
 cleanCorpus <- function(corpus) {
+  # cores <- 1
+  # options(mc.cores = cores)  
+  # tm_parLapply_engine(parallel::mclapply) 
   names <- names(corpus)
   corpus <- VCorpus(VectorSource(corpus))
+  corpus <- tm_map(corpus, removeNonASCII)
   corpus <- tm_map(corpus, tolower)
   corpus <- tm_map(corpus, removePunctuation)
-  corpus <- tm_map(corpus, stripWhitespace)
   corpus <- tm_map(corpus, removeNumbers)
+  corpus <- tm_map(corpus, stripWhitespace)
   # corpus <- tm_map(corpus, removeWords, stopwords("english"))
   corpus <- tm_map(corpus, PlainTextDocument)
   names(corpus) <- names
   return(corpus)
 }
 
-buildNGrams <- function(corpus, ngramType = "unigram") {
+removeRareWords <- function(corpus, highFreq) {
+  tdm <- TermDocumentMatrix(corpus)
+  tokens_to_remove <- findFreqTerms(tdm, highfreq = highFreq)
+  print(length(findFreqTerms(tdm)))
+  print(length(tokens_to_remove))
+  rm(tdm)
+  gc()
+  n <- 1
+  while(n < length(tokens_to_remove)) {
+    print(n)
+    st <- n
+    en <- n + 500
+    n <- en
+    # corpus <- tm_map(corpus, content_transformer(removeWords), tokens_to_remove[st:en])
+    corpus <- tm_map(corpus, removeWords, tokens_to_remove[st:en])
+  }
+  return(corpus)
+}
+
+buildNGrams <- function(corpus, ngramType = "unigram", myDictionary) {
   n <- switch(ngramType,
               unigram = 1,
               bigram = 2,
-              trigram = 3)
-  bigramTokenizer <- function(x) {
+              trigram = 3,
+              quadgram = 4)
+  ngramTokenizer <- function(x) {
     unlist(lapply(ngrams(words(x), n), paste, collapse = " "), use.names = FALSE)
   }
-  tdm_ngrams <- as.matrix(
-    TermDocumentMatrix(corpus, control = list(tokenize = bigramTokenizer)))
-  tdm_ngrams <- as_tibble(tdm_ngrams, rownames = "ngram")
+  tdm_ngrams <- TermDocumentMatrix(corpus,
+                                   control = list(tokenize = ngramTokenizer) )
+  tdm_ngrams <- as_tibble(as.matrix(tdm_ngrams), rownames = "ngram")
   tdm_ngrams <- tdm_ngrams %>% 
     mutate(all = rowSums(.[-1])) %>% 
     arrange(desc(all))
@@ -76,16 +101,23 @@ enhanceNgram <- function(ngram) {
   # use only good ngrams, top x
 }
 
-nextWord <- function(bigrams, trigrams, phrase) {
+nextWord <- function(quadgrams, bigrams, trigrams, phrase) {
   # enhance to use second column of data table
   pWords <- tolower(words(phrase))
   nWords <- length(pWords)
-  pTrunc <- paste(pWords[(nWords-1):nWords], collapse = " ")
-  if(nWords == 1) {
-    searchPhrase <- paste0("^", pTrunc)
-    bigrams$ngram[grepl(searchPhrase, bigrams$ngram)]
-  } else {
-    searchPhrase <- paste0("^", pTrunc)
-    trigrams$ngram[grepl(searchPhrase, trigrams$ngram)]
+  pWords <- pWords[(nWords - 2):nWords]
+  nWords <- length(pWords)
+  for(i in 1:3) {
+    pTrunc <- paste(pWords[(i):nWords], collapse = " ")
+    searchPhrase <- paste0("^", pTrunc, " ")
+    if(i == 1) {
+      nw <- quadgrams$ngram[grepl(searchPhrase, quadgrams$ngram)]
+    } else if(i == 2) {
+      nw <- append(nw, trigrams$ngram[grepl(searchPhrase, trigrams$ngram)])
+    }
+    else {
+      nw <- append(nw, bigrams$ngram[grepl(searchPhrase, bigrams$ngram)])
+    }
   }
+  return(nw)
 }

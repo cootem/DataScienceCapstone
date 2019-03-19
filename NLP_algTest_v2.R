@@ -4,38 +4,17 @@
 
 source("NLP_FUNS.R")
 
-# load whole corpus
-corpus_all <- loadCorpus(folder = "final", filter = "US", sampleN = 1)
-gc()
-
+corpus <- loadCorpus(folder = "final", filter = "US", sampleN = 1)
 sapply(corpus_all, length)
-format(object.size(corpus_all), units = "Mb")
+names <- names(corpus)
+corpus <- SimpleCorpus(VectorSource(corpus))
 
-phrase <- "his little"
-# phrase_cleaned <- removeWords(phrase, stopwords())
-# phrase_cleaned
-
-# limit corpus to only items containing this phrase
-# change to limit corpus based on top ngrams for building higher ngrams
-corpus <- lapply(corpus_all, function(f) f[grepl(phrase, f)])
-format(object.size(corpus), units = "Kb")
-
-corpus <- cleanCorpus(corpus)
-
-format(object.size(corpus), units = "Kb")
-
-# build ngrams
-trigrams <- buildNGrams(corpus, "trigram")
-bigrams <- buildNGrams(corpus, "bigram")
-unigrams <- buildNGrams(corpus, "unigram")
-
-rows <- c(nrow(unigrams), nrow(bigrams), nrow(trigrams))
-names(rows) <- names(corpus)
-prettyNum(rows, big.mark = ",")
-
-# save(unigrams, bigrams, trigrams, file = "nGrams.RData")
-
-# predict
-nextWord(bigrams, trigrams, phrase)[1:50]
-
+corpus <- tm_map(corpus, removeNonASCII)
+corpus <- tm_map(corpus, tolower)
+corpus <- tm_map(corpus, removePunctuation)
+corpus <- tm_map(corpus, removeNumbers)
+corpus <- tm_map(corpus, stripWhitespace)
+# corpus <- tm_map(corpus, removeWords, stopwords("english"))
+corpus <- tm_map(corpus, PlainTextDocument)
+names(corpus) <- names
 
