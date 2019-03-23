@@ -1,6 +1,6 @@
 #### NLP - algorithm testing ####
 # Michael Coote
-# 3/17/2019
+# 3/23/2019
 
 library(stringi)
 library(tidyverse)
@@ -9,7 +9,8 @@ library(quanteda)
 source("NLP_FUNS_v3.R")
 
 # load
-myCorpusData <- loadCorpus(folder = "final", filter = "US", sampleN = 10)
+# getCorpusFiles()
+myCorpusData <- loadCorpus(folder = "final", filter = "US", sampleN = 100)
 myCorpusData <- unlist(myCorpusData, use.names = TRUE)
 myCorpus <- corpus(myCorpusData)
 
