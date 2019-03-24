@@ -10,7 +10,7 @@ source("NLP_FUNS_v4.R")
 
 # load data
 # getCorpusFiles()
-myCorpusData <- loadCorpus(folder = "final", filter = "US", sampleN = 10)
+myCorpusData <- loadCorpus(folder = "final", filter = "US", sampleN = 2)
 myCorpusData <- unlist(myCorpusData, use.names = TRUE)
 myCorpusData <- paste(myCorpusData, collapse = ". ")
 myCorpus <- corpus(myCorpusData)
@@ -41,6 +41,8 @@ phrase <- "a big thank you to"
 phrase <- "big thank you to"
 phrase <- "thank you to"
 phrase <- "you to"
+phrase <- "i'd"
+phrase <- "sarah like to"
 nw <- nextWord(bigrams, trigrams, quadgrams, quintgrams, hexagrams, phrase)
 nw[1:100]
 

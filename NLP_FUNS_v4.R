@@ -5,6 +5,7 @@
 # Michael Coote
 # 3/18/2019
 
+library(data.table)
 library(readr)
 library(quanteda)
 
@@ -49,10 +50,8 @@ tokens <- function(myCorpus, ng = 2) {
                 remove_twitter = TRUE, remove_hyphens = TRUE, 
                 remove_url = TRUE,
                 ngrams = ng, concatenator = " ", verbose = TRUE)
-  # tokenCount <- ntoken(ngrams)
-  ngrams <- dfm_trim(ngrams, min_termfreq = 0.9, termfreq_type = "quantile", verbose = TRUE)
-  ngrams <- dfm_trim(ngrams, min_termfreq = 2, termfreq_type = "count", verbose = TRUE)
-  # tokenCount_trim <- ntoken(ngrams)
+  ngrams <- dfm_trim(ngrams, min_termfreq = 0.85, termfreq_type = "quantile", verbose = TRUE)
+  # ngrams <- dfm_trim(ngrams, min_termfreq = 2, termfreq_type = "count", verbose = TRUE)
   ngrams <- convert(ngrams, to = "data.frame")[, -1]
   tokens <- colnames(ngrams)
   ngrams <- setDT(transpose(ngrams))
@@ -89,6 +88,7 @@ nextWord <- function(bigrams, trigrams, quadgrams, quintgrams, hexagrams,
                  e = append(nw, bigrams[pTrunc][order(-count), nextWord]) )
   }
   nw <- unique(nw)
-  while(nw[1]=="") nw <- nw[-1]
+  nw <- nw[!is.na(nw)]
+  nw <- nw[nw != ""]
   return(nw)
 }
