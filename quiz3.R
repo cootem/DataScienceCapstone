@@ -140,5 +140,6 @@ q10_ans[1:min(length(q10_ans), 10)]
 # build ngrams individual and save to allow for larger sets
 # use backoff
 # use kn prediction
+# lexical dispersion - https://quanteda.io/articles/pkgdown/replication/digital-humanities.html
 
 

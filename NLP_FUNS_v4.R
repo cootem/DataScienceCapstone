@@ -32,9 +32,9 @@ loadCorpus <- function(folder = "final", filter = "US", sampleN = 1000) {
   files_corpus <- list.files(folder, full.names = TRUE, recursive = TRUE)
   files_corpus_filtered <- files_corpus[grepl(filter, files_corpus)]
   corpus <- lapply(files_corpus_filtered, function(f) {
-    file.pipe <- fileSampler(f, sampleN)
-    # read_lines(f, n_max = 10000)
-    read_lines(file.pipe)
+    # file.pipe <- fileSampler(f, sampleN)
+    read_lines(f, n_max = 2e6/sampleN)
+    # read_lines(file.pipe)
     } )
   files_corpus_sh <- list.files(folder, full.names = FALSE, recursive = TRUE)
   files_corpus_sh <- gsub("^(.*)/", "", files_corpus_sh)
@@ -42,8 +42,8 @@ loadCorpus <- function(folder = "final", filter = "US", sampleN = 1000) {
   names(corpus) <- gsub('en_US.|.txt', "", files_corpus_sh_US)
   return(corpus)
 }
-# tokenize
-tokens <- function(myCorpus, ng = 2) {
+
+tokenize <- function(myCorpus, ng = 2) {
   cols_list <- as.list(1:(ng-1))
   ngrams <- dfm(myCorpus, remove_numbers = TRUE, remove_punct = TRUE, 
                 remove_symbols = TRUE, remove_separators = TRUE,
