@@ -36,7 +36,12 @@ bigrams <- tokenize(myCorpus, ng = 2)
 save(bigrams, file = "bigrams.RData", compress = FALSE)
 rm(bigrams)
 
+unigrams <- tokenize1(myCorpus, ng = 1)
+save(unigrams, file = "unigrams.RData", compress = FALSE)
+rm(unigrams)
+
 #### testing ####
+load("unigrams.RData")
 load("bigrams.RData")
 load("trigrams.RData")
 load("quadgrams.RData")
@@ -49,9 +54,12 @@ phrase <- "big thank you to"
 phrase <- "thank you to"
 phrase <- "you to"
 phrase <- "i'd"
-phrase <- "sarah like to have"
-nw <- nextWord(bigrams, trigrams, quadgrams, quintgrams, hexagrams, phrase)
-nw[1:100]
+phrase <- "the baseball"
+phrase <- "at the end of the"
+phrase <- "sarah likes to have"
+phrase <- "test of jjkjklj"
+nw <- nextWord(unigrams, bigrams, trigrams, quadgrams, quintgrams, hexagrams, phrase)
+nw[1:min(20, length(nw))]
 
 phrase <- "might"
 bigrams[phrase][.N][,nextWord]
@@ -59,21 +67,3 @@ bigrams[phrase][order(count),nextWord]
 bigrams[phrase][order(-count), nextWord]
 
 #### experiment with other methods ####
-ng <- 2
-ngram <- tokens(myCorpus, remove_numbers = TRUE, remove_punct = TRUE, 
-                 remove_symbols = TRUE, remove_separators = TRUE,
-                 remove_twitter = TRUE, remove_hyphens = TRUE, 
-                 remove_url = TRUE,
-                 ngrams = ng, concatenator = " ", verbose = TRUE)
-ngram <- dfm(ngram)
-ngram_features <- textstat_frequency(ngram)
-ngram_features <- setDT(ngram_features)
-ngram_features <- ngram_features[, c(-4, -5)]
-setnames(ngram_features, "feature", "ngram_start")
-setnames(ngram_features, "frequency", "count")
-ngram_features[, nextWord := tstrsplit(ngram_start, " ", fixed = TRUE, keep = ng)]
-cols_list <- as.list(1:(ng-1))
-ngram_features[, ngram_start := do.call(paste, tstrsplit(ngram_start, " ", fixed = TRUE, keep = cols_list)) ]
-setcolorder(ngram_features, c("ngram_start", "nextWord", "count"))
-setkey(ngram_features, ngram_start, count)
-

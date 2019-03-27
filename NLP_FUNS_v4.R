@@ -45,30 +45,51 @@ loadCorpus <- function(folder = "final", filter = "US", sampleN = 1000) {
 
 tokenize <- function(myCorpus, ng = 2) {
   cols_list <- as.list(1:(ng-1))
-  ngrams <- dfm(myCorpus, remove_numbers = TRUE, remove_punct = TRUE, 
-                remove_symbols = TRUE, remove_separators = TRUE,
-                remove_twitter = TRUE, remove_hyphens = TRUE, 
-                remove_url = TRUE,
-                ngrams = ng, concatenator = " ", verbose = TRUE)
-  ngrams <- dfm_trim(ngrams, min_termfreq = 0.85, termfreq_type = "quantile", verbose = TRUE)
+  ngrams <- tokens(myCorpus, remove_numbers = TRUE, remove_punct = TRUE, 
+                   remove_symbols = TRUE, remove_separators = TRUE,
+                   remove_twitter = TRUE, remove_hyphens = TRUE,
+                   remove_url = TRUE,
+                   ngrams = ng, concatenator = " ", verbose = TRUE)
+  ngrams <- dfm(ngrams)
+  ngrams <- dfm_trim(ngrams, min_termfreq = 0.9, termfreq_type = "quantile", 
+                     verbose = TRUE)
   # ngrams <- dfm_trim(ngrams, min_termfreq = 2, termfreq_type = "count", verbose = TRUE)
-  ngrams <- convert(ngrams, to = "data.frame")[, -1]
-  tokens <- colnames(ngrams)
-  ngrams <- setDT(transpose(ngrams))
-  ngrams[, ngram_start := tokens]
-  ngrams <- ngrams[-1]
-  setnames(ngrams, "V1", "count")
+  ngrams <- textstat_frequency(ngrams)
+  ngrams <- setDT(ngrams)
+  ngrams <- ngrams[, c(-4, -5)]
+  setnames(ngrams, "feature", "ngram_start")
+  setnames(ngrams, "frequency", "count")
   ngrams[, nextWord := tstrsplit(ngram_start, " ", fixed = TRUE, keep = ng)]
-  ngrams[, ngram_start := do.call(paste, tstrsplit(ngram_start, " ", fixed = TRUE, keep = cols_list)) ]
+  ngrams[, ngram_start := do.call(paste, 
+                                  tstrsplit(ngram_start, " ", 
+                                            fixed = TRUE,
+                                            keep = cols_list)) ]
   setcolorder(ngrams, c("ngram_start", "nextWord", "count"))
   setkey(ngrams, ngram_start, count)
-  #setorder(ngrams, ngram_start, -count)
+  return(ngrams)
+}
+
+tokenize1 <- function(myCorpus, ng = 1) {
+  cols_list <- as.list(1:(ng-1))
+  ngrams <- tokens(myCorpus, remove_numbers = TRUE, remove_punct = TRUE, 
+                   remove_symbols = TRUE, remove_separators = TRUE,
+                   remove_twitter = TRUE, remove_hyphens = TRUE,
+                   remove_url = TRUE,
+                   ngrams = ng, concatenator = " ", verbose = TRUE)
+  ngrams <- dfm(ngrams)
+  ngrams <- textstat_frequency(ngrams)
+  ngrams <- setDT(ngrams)
+  ngrams <- ngrams[, c(-4, -5)]
+  setnames(ngrams, "feature", "nextWord")
+  setnames(ngrams, "frequency", "count")
+  setcolorder(ngrams, c("nextWord", "count"))
+  setkey(ngrams, nextWord)
   return(ngrams)
 }
 
 # return the next word from a phrase
-nextWord <- function(bigrams, trigrams, quadgrams, quintgrams, hexagrams, 
-                     phrase) {
+nextWord <- function(unigrams, bigrams, trigrams, quadgrams, quintgrams, 
+                     hexagrams, phrase) {
   pWords <- tolower(phrase)
   pWords <- unlist(strsplit(pWords, split = " "))
   nWords <- length(pWords)
@@ -76,19 +97,25 @@ nextWord <- function(bigrams, trigrams, quadgrams, quintgrams, hexagrams,
   nWords <- length(pWords)
   nw <- ""
   k <- 0
-  for(i in (6 - nWords):5) {
+  for(i in (6 - nWords):6) {
     j <- letters[i]
-    k <- k + 1
+    k <- ifelse(k < nWords, k + 1, k)
     pTrunc <- paste(pWords[k:nWords], collapse = " ")
     nw <- switch(EXPR = j,
-                 a = hexagrams[pTrunc][order(-count), nextWord],
-                 b = append(nw, quintgrams[pTrunc][order(-count), nextWord]),
-                 c = append(nw, quadgrams[pTrunc][order(-count), nextWord]),
-                 d = append(nw, trigrams[pTrunc][order(-count), nextWord]),
-                 e = append(nw, bigrams[pTrunc][order(-count), nextWord]) )
+                 a = hexagrams[pTrunc][order(-count, -rank), nextWord],
+                 b = append(nw, quintgrams[pTrunc][order(-count, -rank),
+                                                   nextWord][1:20]),
+                 c = append(nw, quadgrams[pTrunc][order(-count, -rank), 
+                                                  nextWord][1:20]),
+                 d = append(nw, trigrams[pTrunc][order(-count, -rank), 
+                                                 nextWord][1:20]),
+                 e = append(nw, bigrams[pTrunc][order(-count, -rank), 
+                                                nextWord][1:20]),
+                 f = append(nw, unigrams[order(-count, -rank), nextWord][1:20]) )
   }
   nw <- unique(nw)
   nw <- nw[!is.na(nw)]
   nw <- nw[nw != ""]
   return(nw)
 }
+
