@@ -104,13 +104,13 @@ nextWord <- function(unigrams, bigrams, trigrams, quadgrams, quintgrams,
     nw <- switch(EXPR = j,
                  a = hexagrams[pTrunc][order(-count, -rank), nextWord],
                  b = append(nw, quintgrams[pTrunc][order(-count, -rank),
-                                                   nextWord][1:20]),
+                                                   nextWord][1:100]),
                  c = append(nw, quadgrams[pTrunc][order(-count, -rank), 
-                                                  nextWord][1:20]),
+                                                  nextWord][1:100]),
                  d = append(nw, trigrams[pTrunc][order(-count, -rank), 
-                                                 nextWord][1:20]),
+                                                 nextWord][1:100]),
                  e = append(nw, bigrams[pTrunc][order(-count, -rank), 
-                                                nextWord][1:20]),
+                                                nextWord][1:100]),
                  f = append(nw, unigrams[order(-count, -rank), nextWord][1:20]) )
   }
   nw <- unique(nw)
