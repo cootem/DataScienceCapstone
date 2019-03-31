@@ -96,6 +96,12 @@ mergeNgramList <- function(ngramsL) {
   ngramsL <- unique(ngramsL)
 }
 
+mergeNgramList1 <- function(ngramsL) {
+  ngramsL <- rbindlist(ngramsL)
+  ngramsL <- ngramsL[, count := sum(count), nextWord]
+  ngramsL <- unique(ngramsL)
+}
+
 preEstimateProbs <- function(ngrams) {
   ngrams[, cStart := sum(count), ngram_start]
   ngrams[, P := count / cStart]

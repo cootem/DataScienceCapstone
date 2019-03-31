@@ -20,22 +20,22 @@ chunk <- function(vec, cSize = 1e4) {
 
 # load data
 # getCorpusFiles()
-myCorpusData <- loadCorpus(folder = "final", filter = "US", sampleN = 100)
+myCorpusData <- loadCorpus(folder = "final", filter = "US", sampleN = 1)
 sapply(myCorpusData, function(f) format(object.size(f), units = "Mb"))
 sapply(myCorpusData, length)
 myCorpus <- unlist(myCorpusData, use.names = TRUE)
-myCorpus <- chunk(myCorpus, cSize = 1e4)
+myCorpus <- chunk(myCorpus, cSize = 1e5)
 myCorpus <- lapply(myCorpus, function(f) paste(f, collapse = ". "))
 myCorpus <- lapply(myCorpus, corpus)
-# rm(myCorpusData); gc()
+rm(myCorpusData); gc()
 
 unigrams <- lapply(myCorpus, function(corp) tokenize1(corp, ng = 1))
-unigrams <- mergeNgramList(unigrams)
+unigrams <- mergeNgramList1(unigrams)
 unigrams[, P := count / nrow(unigrams)]
 setkey(unigrams, nextWord, P)
 save(unigrams, file = "unigrams.RData", compress = FALSE)
 rm(unigrams)
-
+gc()
 
 # hexagrams <- lapply(myCorpus, function(co) tokenize(co, ng = 6))
 hexagrams <- lapply(myCorpus, function(corp) tokenize(corp, ng = 6))
