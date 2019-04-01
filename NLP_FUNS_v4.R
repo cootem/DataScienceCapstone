@@ -90,6 +90,17 @@ tokenize1 <- function(myCorpus, ng = 2) {
   return(ngrams)
 }
 
+tokenizeList <- function(myCorpusList, ng = 2) {
+  file_ngram <- character()
+  for(i in names(myCorpusList)) {
+    print(paste("creating", ng, "- grams for sub-corpus", i))
+    ngrams <- tokenize(myCorpus[[i]], ng)
+    file_ngram[i] <- paste0("ngrams/", ng, "grams_", i, ".RData")
+    saveRDS(ngrams, file = file_ngram[i])
+  }
+  return(file_ngram)
+}
+
 mergeNgramList <- function(ngramsL) {
   ngramsL <- rbindlist(ngramsL)
   ngramsL <- ngramsL[, count := sum(count), .(ngram_start, nextWord)]

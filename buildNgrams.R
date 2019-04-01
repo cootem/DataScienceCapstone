@@ -37,36 +37,53 @@ save(unigrams, file = "unigrams.RData", compress = FALSE)
 rm(unigrams)
 gc()
 
-# hexagrams <- lapply(myCorpus, function(co) tokenize(co, ng = 6))
-hexagrams <- lapply(myCorpus, function(corp) tokenize(corp, ng = 6))
+# Tokenize ngrams to disk
+files_hexagrams <- tokenizeList(myCorpus, ng = 6)
+files_quintgrams <- tokenizeList(myCorpus, ng = 5)
+files_quadgrams <- tokenizeList(myCorpus, ng = 4)
+files_trigrams <- tokenizeList(myCorpus, ng = 3)
+files_bigrams <- tokenizeList(myCorpus, ng = 2)
+
+# read back, merge, create progabilitites
+files_hexagrams <- list.files(path = "ngrams/", pattern = "6grams", 
+                              full.names = TRUE)
+hexagrams <- lapply(files_hexagrams, readRDS)
 hexagrams <- mergeNgramList(hexagrams)
 hexagrams <- preEstimateProbs(hexagrams)
 save(hexagrams, file = "hexagrams.RData", compress = FALSE)
 rm(hexagrams)
 gc()
 
-quintgrams <- lapply(myCorpus, function(corp) tokenize(corp, ng = 5))
+files_quintgrams <- list.files(path = "ngrams/", pattern = "5grams", 
+                              full.names = TRUE)
+quintgrams <- lapply(files_quintgrams, readRDS)
 quintgrams <- mergeNgramList(quintgrams)
 quintgrams <- preEstimateProbs(quintgrams)
 save(quintgrams, file = "quintgrams.RData", compress = FALSE)
 rm(quintgrams)
 gc()
 
-quadgrams <- lapply(myCorpus, function(corp) tokenize(corp, ng = 4))
+files_quadgrams <- list.files(path = "ngrams/", pattern = "4grams", 
+                              full.names = TRUE)
+quadgrams <- lapply(files_quadgrams, readRDS)
 quadgrams <- mergeNgramList(quadgrams)
 quadgrams <- preEstimateProbs(quadgrams)
 save(quadgrams, file = "quadgrams.RData", compress = FALSE)
 rm(quadgrams)
 gc()
 
-trigrams <- lapply(myCorpus, function(corp) tokenize(corp, ng = 3))
+files_trigrams <- list.files(path = "ngrams/", pattern = "3grams", 
+                                            full.names = TRUE)
+trigrams <- lapply(files_trigrams, readRDS)
 trigrams <- mergeNgramList(trigrams)
 trigrams <- preEstimateProbs(trigrams)
 save(trigrams, file = "trigrams.RData", compress = FALSE)
 rm(trigrams)
 gc()
 
-bigrams <- lapply(myCorpus, function(corp) tokenize(corp, ng = 2))
+files_bigrams <- list.files(path = "ngrams/", pattern = "2grams", 
+                              full.names = TRUE)
+bigrams <- lapply(files_bigrams, readRDS)
 bigrams <- mergeNgramList(bigrams)
 bigrams <- preEstimateProbs(bigrams)
 save(bigrams, file = "bigrams.RData", compress = FALSE)
