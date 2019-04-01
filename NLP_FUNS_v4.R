@@ -116,8 +116,8 @@ mergeNgramList1 <- function(ngramsL) {
 preEstimateProbs <- function(ngrams) {
   ngrams[, cStart := sum(count), ngram_start]
   ngrams[, P := count / cStart]
-  ngrams <- ngrams[, .(ngram_start, nextWord, P)]
-  setkey(ngrams, ngram_start, P)
+  ngrams <- ngrams[, .(ngram_start, nextWord, count, P)]
+  setkey(ngrams, ngram_start)
   }
 
 # return the next word from a phrase
