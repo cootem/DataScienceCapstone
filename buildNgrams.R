@@ -33,7 +33,7 @@ unigrams <- lapply(myCorpus, function(corp) tokenize1(corp, ng = 1))
 unigrams <- mergeNgramList1(unigrams)
 unigrams[, P := count / nrow(unigrams)]
 setkey(unigrams, nextWord, P)
-save(unigrams, file = "unigrams.RData", compress = FALSE)
+save(unigrams, file = "unigrams.RData" )
 rm(unigrams)
 gc()
 
@@ -50,7 +50,7 @@ files_hexagrams <- list.files(path = "ngrams/", pattern = "6grams",
 hexagrams <- lapply(files_hexagrams, readRDS)
 hexagrams <- mergeNgramList(hexagrams)
 hexagrams <- preEstimateProbs(hexagrams)
-save(hexagrams, file = "hexagrams.RData", compress = FALSE)
+save(hexagrams, file = "hexagrams.RData" )
 rm(hexagrams)
 gc()
 
@@ -59,7 +59,7 @@ files_quintgrams <- list.files(path = "ngrams/", pattern = "5grams",
 quintgrams <- lapply(files_quintgrams, readRDS)
 quintgrams <- mergeNgramList(quintgrams)
 quintgrams <- preEstimateProbs(quintgrams)
-save(quintgrams, file = "quintgrams.RData", compress = FALSE)
+save(quintgrams, file = "quintgrams.RData" )
 rm(quintgrams)
 gc()
 
@@ -68,7 +68,7 @@ files_quadgrams <- list.files(path = "ngrams/", pattern = "4grams",
 quadgrams <- lapply(files_quadgrams, readRDS)
 quadgrams <- mergeNgramList(quadgrams)
 quadgrams <- preEstimateProbs(quadgrams)
-save(quadgrams, file = "quadgrams.RData", compress = FALSE)
+save(quadgrams, file = "quadgrams.RData" )
 rm(quadgrams)
 gc()
 
@@ -77,7 +77,7 @@ files_trigrams <- list.files(path = "ngrams/", pattern = "3grams",
 trigrams <- lapply(files_trigrams, readRDS)
 trigrams <- mergeNgramList(trigrams)
 trigrams <- preEstimateProbs(trigrams)
-save(trigrams, file = "trigrams.RData", compress = FALSE)
+save(trigrams, file = "trigrams.RData" )
 rm(trigrams)
 gc()
 
@@ -86,7 +86,7 @@ files_bigrams <- list.files(path = "ngrams/", pattern = "2grams",
 bigrams <- lapply(files_bigrams, readRDS)
 bigrams <- mergeNgramList(bigrams)
 bigrams <- preEstimateProbs(bigrams)
-save(bigrams, file = "bigrams.RData", compress = FALSE)
+save(bigrams, file = "bigrams.RData" )
 rm(bigrams)
 gc()
 
