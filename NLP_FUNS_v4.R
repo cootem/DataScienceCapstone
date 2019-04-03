@@ -121,7 +121,7 @@ preEstimateProbs <- function(ngrams) {
   }
 
 # return the next word from a phrase
-nextWord <- function(unigrams, bigrams, trigrams, quadgrams, quintgrams, 
+nextWord6 <- function(unigrams, bigrams, trigrams, quadgrams, quintgrams, 
                      hexagrams, phrase) {
   pWords <- tolower(phrase)
   pWords <- unlist(strsplit(pWords, split = " "))
@@ -189,7 +189,7 @@ nextWord4 <- function(unigrams, bigrams, trigrams, quadgrams, phrase) {
 # return the =next word from a phrase
 nextWord5 <- function(unigrams, bigrams, trigrams, quadgrams, quintgrams, 
                       phrase) {
-  pWords <- phrase #### strip punctuation
+  pWords <- phrase #### strip punctuation, numbers
   pWords <- tolower(pWords)
   pWords <- unlist(strsplit(pWords, split = " "))
   nWords <- length(pWords)
