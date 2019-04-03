@@ -11,8 +11,8 @@ library(data.table)
 #### remove outer quariles
 
 # take count > 1 and top 4 in each group only
-pruneNgram <- function(ngrams, minStLen = 1, maxStLen = 30, minNwLen = 1, maxNwLen = 20, minCnt = 0) {
-  ngrams <- ngrams[count > minCnt]
+pruneNgram <- function(ngrams, minStLen = 1, maxStLen = 30, minNwLen = 1, maxNwLen = 20, minCnt = 1) {
+  ngrams <- ngrams[count >= minCnt]
   ngrams[, StLen := nchar(ngram_start)]
   ngrams <- ngrams[StLen >= minStLen & StLen <= maxStLen]
   ngrams[, NwLen := nchar(nextWord)]
@@ -40,7 +40,7 @@ gc()
 
 load("quadgrams.RData")
 format(object.size(quadgrams), units = "Mb")
-quadgrams <- pruneNgram(quadgrams, minStLen = 10, maxStLen = 18, minNwLen = 1, maxNwLen = 10, minCnt = 0)
+quadgrams <- pruneNgram(quadgrams, minStLen = 10, maxStLen = 18, minNwLen = 1, maxNwLen = 10, minCnt = 2)
 format(object.size(quadgrams), units = "Mb")
 save(quadgrams, file = "quadgrams_sm.RData")
 rm(quadgrams)
