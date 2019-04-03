@@ -48,7 +48,7 @@ gc()
 
 load("quintgrams.RData")
 format(object.size(quintgrams), units = "Mb")
-quintgrams <- pruneNgram(quintgrams)
+quintgrams <- pruneNgram(quintgrams, minStLen = 14, maxStLen = 22, minNwLen = 1, maxNwLen = 10, minCnt = 2)
 format(object.size(quintgrams), units = "Mb")
 save(quintgrams, file = "quintgrams_sm.RData")
 rm(quintgrams)
