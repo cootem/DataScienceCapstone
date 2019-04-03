@@ -7,11 +7,12 @@
 
 library(data.table)
 
-# take count > 1 and top 3 in each group only
+# take count > 1 and top 4 in each group only
 pruneNgram <- function(ngrams) {
   ngrams <- ngrams[count > 1]
-  ngrams <- ngrams[order(-P), head(.SD, 3), ngram_start]
+  ngrams <- ngrams[order(-P), head(.SD, 4), ngram_start]
   ngrams[,count := NULL]
+  setkey(ngrams, ngram_start)
 }
 
 load("bigrams.RData")

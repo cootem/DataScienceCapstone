@@ -31,7 +31,7 @@ rm(myCorpusData); gc()
 
 unigrams <- lapply(myCorpus, function(corp) tokenize1(corp, ng = 1))
 unigrams <- mergeNgramList1(unigrams)
-unigrams[, P := count / nrow(unigrams)]
+unigrams[, P := count / sum(unigrams$count)]
 setkey(unigrams, nextWord, P)
 save(unigrams, file = "unigrams.RData" )
 rm(unigrams)
