@@ -24,7 +24,7 @@ pruneNgram <- function(ngrams, minStLen = 1, maxStLen = 30, minNwLen = 1, maxNwL
 
 load("bigrams.RData")
 format(object.size(bigrams), units = "Mb")
-bigrams <- pruneNgram(bigrams)
+bigrams <- pruneNgram(bigrams, minStLen = 1, maxStLen = 15, minNwLen = 1, maxNwLen = 10, minCnt = 0)
 format(object.size(bigrams), units = "Mb")
 save(bigrams, file = "bigrams_sm.RData")
 rm(bigrams)
