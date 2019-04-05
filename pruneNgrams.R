@@ -1,14 +1,11 @@
 #### Prune Ngrams ####
 # Data Science Specialization - Capstone Project
-#
+# minimize storage size of ngrams
 #
 # Michael Coote
-# 4/2/2019
+# 4/4/2019
 
 library(data.table)
-
-#### add length test to ngram_start and nextWord
-#### remove outer quariles
 
 # take count > 1 and top 4 in each group only
 pruneNgram <- function(ngrams, minStLen = 1, maxStLen = 30, minNwLen = 1, maxNwLen = 20, minCnt = 1) {
@@ -24,7 +21,7 @@ pruneNgram <- function(ngrams, minStLen = 1, maxStLen = 30, minNwLen = 1, maxNwL
 
 load("bigrams.RData")
 format(object.size(bigrams), units = "Mb")
-bigrams <- pruneNgram(bigrams, minStLen = 1, maxStLen = 15, minNwLen = 1, maxNwLen = 10, minCnt = 0)
+bigrams <- pruneNgram(bigrams, minStLen = 1, maxStLen = 15, minNwLen = 1, maxNwLen = 10, minCnt = 1)
 format(object.size(bigrams), units = "Mb")
 save(bigrams, file = "bigrams_sm.RData")
 rm(bigrams)
@@ -32,7 +29,7 @@ gc()
 
 load("trigrams.RData")
 format(object.size(trigrams), units = "Mb")
-trigrams <- pruneNgram(trigrams, minStLen = 4, maxStLen = 15, minNwLen = 1, maxNwLen = 10, minCnt = 0)
+trigrams <- pruneNgram(trigrams, minStLen = 4, maxStLen = 15, minNwLen = 1, maxNwLen = 10, minCnt = 2)
 format(object.size(trigrams), units = "Mb")
 save(trigrams, file = "trigrams_sm.RData")
 rm(trigrams)
@@ -56,8 +53,14 @@ gc()
 
 load("hexagrams.RData")
 format(object.size(hexagrams), units = "Mb")
-hexagrams <- pruneNgram(hexagrams)
+summary(nchar(hexagrams$ngram_start))
+quantile(nchar(hexagrams$ngram_start), probs = seq(0, 1, length = 21))
+summary(nchar(hexagrams$nextWord))
+quantile(nchar(hexagrams$nextWord), probs = seq(0, 1, length = 21))
+hist(nchar(hexagrams$ngram_start))
+hist(nchar(hexagrams$nextWord))
+hexagrams <- pruneNgram(hexagrams, minStLen = 19, maxStLen = 32, minNwLen = 1, maxNwLen = 9, minCnt = 1)
 format(object.size(hexagrams), units = "Mb")
-save(hexagrams, file = "hexagrams.RData", compress = FALSE)
+save(hexagrams, file = "hexagrams_sm.RData", compress = FALSE)
 rm(hexagrams)
 gc()

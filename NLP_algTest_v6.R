@@ -4,7 +4,7 @@
 
 library(data.table)
 
-source("NLP_FUNS_v4.R")
+source("nextWord.R")
 
 # load ngrams
 load("unigrams.RData")
@@ -12,7 +12,7 @@ load("bigrams_sm.RData")
 load("trigrams_sm.RData")
 load("quadgrams_sm.RData")
 load("quintgrams_sm.RData")
-#load("hexagrams_sm.RData")
+load("hexagrams_sm.RData")
 
 setkey(unigrams, nextWord)
 setkey(bigrams, ngram_start)

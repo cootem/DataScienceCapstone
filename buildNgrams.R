@@ -19,7 +19,7 @@ chunk <- function(vec, cSize = 1e4) {
 }
 
 # load data
-# getCorpusFiles()
+#getCorpusFiles()
 myCorpusData <- loadCorpus(folder = "final", filter = "US", sampleN = 1)
 sapply(myCorpusData, function(f) format(object.size(f), units = "Mb"))
 sapply(myCorpusData, length)
@@ -47,7 +47,14 @@ files_bigrams <- tokenizeList(myCorpus, ng = 2)
 # read back, merge, create progabilitites
 files_hexagrams <- list.files(path = "ngrams/", pattern = "6grams", 
                               full.names = TRUE)
-hexagrams <- lapply(files_hexagrams, readRDS)
+hexagrams <- lapply(files_hexagrams, function(f) {
+  print(f)
+  h <- readRDS(f)
+  print(nrow(h))
+  h <- h[count >1]
+  print(nrow(h))
+  return(h)
+  })
 hexagrams <- mergeNgramList(hexagrams)
 hexagrams <- preEstimateProbs(hexagrams)
 save(hexagrams, file = "hexagrams.RData" )
