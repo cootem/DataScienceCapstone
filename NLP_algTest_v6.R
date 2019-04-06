@@ -14,11 +14,18 @@ load("quadgrams_sm.RData")
 load("quintgrams_sm.RData")
 load("hexagrams_sm.RData")
 
-setkey(unigrams, nextWord)
-setkey(bigrams, ngram_start)
-setkey(trigrams, ngram_start)
-setkey(quadgrams, ngram_start)
-setkey(quintgrams, ngram_start)
+save(unigrams, file = "unigrams.RData", compress = FALSE)
+save(bigrams, file = "bigrams_sm.RData", compress = FALSE)
+save(trigrams, file = "trigrams_sm.RData", compress = FALSE)
+save(quadgrams, file = "quadgrams_sm.RData", compress = FALSE)
+save(quintgrams, file = "quintgrams_sm.RData", compress = FALSE)
+save(hexagrams, file = "hexagrams_sm.RData", compress = FALSE)
+
+# setkey(unigrams, nextWord)
+# setkey(bigrams, ngram_start)
+# setkey(trigrams, ngram_start)
+# setkey(quadgrams, ngram_start)
+# setkey(quintgrams, ngram_start)
 
 # test pulling next word
 phrase <- "of the"
@@ -31,9 +38,10 @@ phrase <- "the baseball"
 phrase <- "at the end of the"
 phrase <- "sarah likes to have"
 phrase <- "test of jjkjklj"
-nw <- nextWord(unigrams, bigrams, trigrams, quadgrams, quintgrams, hexagrams, phrase)
 nw <- nextWord4(unigrams, bigrams, trigrams, quadgrams, phrase)
 nw <- nextWord5(unigrams, bigrams, trigrams, quadgrams, quintgrams, phrase)
+nw <- nextWord6(unigrams, bigrams, trigrams, quadgrams, quintgrams, hexagrams, 
+                phrase)
 nw
 
 phrase <- q1_phrase

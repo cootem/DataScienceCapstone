@@ -20,7 +20,8 @@ chunk <- function(vec, cSize = 1e4) {
 
 # load data
 #getCorpusFiles()
-myCorpusData <- loadCorpus(folder = "final", filter = "US", sampleN = 1)
+# fileCleaner()
+myCorpusData <- loadCorpus(folder = "final", filter = "clean", sampleN = 1)
 sapply(myCorpusData, function(f) format(object.size(f), units = "Mb"))
 sapply(myCorpusData, length)
 myCorpus <- unlist(myCorpusData, use.names = TRUE)

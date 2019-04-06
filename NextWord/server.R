@@ -7,18 +7,26 @@
 
 library(shiny)
 
+source('nextWord.R')
+
+# load ngrams
+load("unigrams.RData")
+load("bigrams_sm.RData")
+load("trigrams_sm.RData")
+load("quadgrams_sm.RData")
+load("quintgrams_sm.RData")
+load("hexagrams_sm.RData")
+
 # Define server logic required to show next word predictions
-shinyServer(function(input, output) {
-
-    output$distPlot <- renderPlot({
-
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-
+shinyServer(
+  function(input, output) {
+    nw <- reactive({
+      nextWord6(unigrams, bigrams, trigrams, quadgrams, quintgrams, 
+                hexagrams, input$stem) 
     })
-
+    output$nextWord1 <- renderText( nw()[1,nextWord] )
+    output$nextWord2 <- renderText( nw()[2,nextWord] )
+    output$nextWord3 <- renderText( nw()[3,nextWord] )
+    output$yourNextWord <- renderDataTable(nw())
+    # verbatimTextOutput(nw)
 })

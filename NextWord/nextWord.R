@@ -3,7 +3,7 @@
 # uses Stupid Back-Off
 #
 # Michael Coote
-# 4/3/2019
+# 4/6/2019
 
 library(data.table)
 
@@ -92,38 +92,42 @@ nextWord5 <- function(unigrams, bigrams, trigrams, quadgrams, quintgrams,
 
 # return the next word from a phrase
 nextWord6 <- function(unigrams, bigrams, trigrams, quadgrams, quintgrams, 
-                      phrase) {
-  pWords <- phrase #### strip punctuation, numbers
+                      hexagrams, phrase) {
+  pWords <- gsub('[[:punct:] ]+',' ',phrase)
   pWords <- tolower(pWords)
+  pWords <- gsub(' [0-9]* ', ' ', pWords)
   pWords <- unlist(strsplit(pWords, split = " "))
   nWords <- length(pWords)
-  pWords <- pWords[ifelse((nWords - 3) > 0, nWords - 3, 1):nWords]
+  pWords <- pWords[ifelse((nWords - 4) > 0, nWords - 4, 1):nWords]
   nWords <- length(pWords)
   nw <- data.table(pTrunc = character(), nextWord = character(), P = numeric(), 
                    Pn = numeric())
   k <- 0
   # use backoff prob Pngram(nw|w-1) = 0.4 * P(nw|w-1)
-  for(i in (5 - nWords):5) {
+  for(i in (6 - nWords):6) {
     j <- letters[i]
     k <- ifelse(k < nWords, k + 1, k)
     pTrunc <- paste(pWords[k:nWords], collapse = " ")
-    
     nw <- switch(EXPR = j,
-                 a = quintgrams[pTrunc][order(-P), 
-                                        .(pTrunc, nextWord, P, Pn = P)],
+                 a = hexagrams[pTrunc][order(-P), 
+                                       .(pTrunc, nextWord, P, Pn = P)],
                  b = rbind(nw, 
-                           quadgrams[pTrunc]
+                           quintgrams[pTrunc]
                            [order(-P), .(pTrunc, nextWord, P, Pn = P*.4^(k-1))]
                            [1:.N]),
                  c = rbind(nw, 
-                           trigrams[pTrunc]
+                           quadgrams[pTrunc]
                            [order(-P), .(pTrunc, nextWord, P, Pn = P*.4^(k-1))]
                            [1:.N]),
                  d = rbind(nw, 
-                           bigrams[pTrunc]
+                           trigrams[pTrunc]
                            [order(-P), .(pTrunc, nextWord, P, Pn = P*.4^(k-1))]
                            [1:.N]),
                  e = rbind(nw, 
+                           bigrams[pTrunc]
+                           [order(-P), .(pTrunc, nextWord, P, Pn = P*.4^(k-1))]
+                           [1:.N]),
+                 f = rbind(nw, 
                            unigrams[order(-P), 
                                     .(pTrunc, 
                                       nextWord, 

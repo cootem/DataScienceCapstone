@@ -20,6 +20,19 @@ getCorpusFiles <- function(url_f = "", file_corpus = "Coursera-Swiftkey.zip") {
   files_corpus <- list.files(folder, full.names = TRUE, recursive = TRUE)
 }
 
+# remove garbage ASCII characters
+fileCleaner <- function(folder = "final", filter = "US") {
+  files_corpus <- list.files(folder, pattern = filter, full.names = TRUE, 
+                             recursive = TRUE)
+  lapply(files_corpus, function(fc) {
+    fout <- gsub(pattern = ".txt", "_clean.txt", fc)
+    command <- paste0("tr -cd '\\ 11\\12\\15\\40-\\176' <", fc, " > ", fout)
+    system(command)
+    fout
+  })
+  return(1)
+}
+
 fileSampler <- function(fname, sampleN) {
   # awk returns every nth row of file
   pipeName <- sprintf("awk '!(NR%%%s)' %s", sampleN, fname)
@@ -28,10 +41,10 @@ fileSampler <- function(fname, sampleN) {
   file.pipe <- pipe(pipeName)
 }
 
-loadCorpus <- function(folder = "final", filter = "US", sampleN = 1000) {
-  files_corpus <- list.files(folder, full.names = TRUE, recursive = TRUE)
-  files_corpus_filtered <- files_corpus[grepl(filter, files_corpus)]
-  corpus <- lapply(files_corpus_filtered, function(f) {
+loadCorpus <- function(folder = "final", filter = "cleaned", sampleN = 1000) {
+  files_corpus <- list.files(folder, pattern = filter, full.names = TRUE, 
+                             recursive = TRUE)
+  corpus <- lapply(files_corpus, function(f) {
     # file.pipe <- fileSampler(f, sampleN)
     # read_lines(f, n_max = 2e6/sampleN)
     # read_lines(file.pipe)
@@ -39,7 +52,7 @@ loadCorpus <- function(folder = "final", filter = "US", sampleN = 1000) {
     } )
   files_corpus_sh <- list.files(folder, full.names = FALSE, recursive = TRUE)
   files_corpus_sh <- gsub("^(.*)/", "", files_corpus_sh)
-  files_corpus_sh_US <- files_corpus_sh[grepl("US", files_corpus_sh)]
+  files_corpus_sh_US <- files_corpus_sh[grepl("clean", files_corpus_sh)]
   names(corpus) <- gsub('en_US.|.txt', "", files_corpus_sh_US)
   return(corpus)
 }

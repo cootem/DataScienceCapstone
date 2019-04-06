@@ -7,27 +7,21 @@
 
 library(shiny)
 
-source('nextWord.R')
-
 # Define UI for application to show next word predictions
-shinyUI(fluidPage(
-
-    # Application title
-    titlePanel("Next Word Predictor"),
-
-    # Sidebar with a slider input for number of bins
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+shinyUI(
+    fluidPage(
+        headerPanel("Data Science Capstone"),
+        titlePanel("Next Word Predictor"),
+        textInput("stem", "Enter a phrase", "type here"),
+        div(style="width:500px; margin-left:20px",
+            fluidRow( h3("My recomendations for the next word:") ),
+            fluidRow(
+                column(4, verbatimTextOutput("nextWord1")),
+                column(4, verbatimTextOutput("nextWord2")),
+                column(4, verbatimTextOutput("nextWord3")) 
+            ),
+            fluidRow( h3("Table of Probabilities"))
         ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-            plotOutput("distPlot")
-        )
+        fluidRow(dataTableOutput("yourNextWord"))
     )
-))
+)
