@@ -3,7 +3,7 @@
 # application by clicking 'Run App' above.
 #
 # Michael Coote
-# 4/3/2019
+# 4/7/2019
 
 library(shiny)
 
@@ -27,6 +27,10 @@ shinyServer(
     output$nextWord1 <- renderText( nw()[1,nextWord] )
     output$nextWord2 <- renderText( nw()[2,nextWord] )
     output$nextWord3 <- renderText( nw()[3,nextWord] )
-    output$yourNextWord <- renderDataTable(nw())
-    # verbatimTextOutput(nw)
-})
+    output$yourNextWord <- renderDataTable(
+      if(input$view == "On") {nw()}
+      
+    )
+  }
+)
+

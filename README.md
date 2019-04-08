@@ -13,4 +13,6 @@ Science Product.
 ## Deliverables
 
 *  [Data Exploration](DSC_DataExploration.html)
+*  [Shiny App](https://cootem.shinyapps.io/NextWord/)
+*  [Presentation](NextWord_NLP.html)
 
